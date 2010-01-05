@@ -1,9 +1,6 @@
 (function($) {
-  
-  if (! $.tt)
-  {
-    $.tt = {};
-  }
+
+  $.tt = $.tt || {};
   
   /**
    * Shows an nice alert box as alternative to native alert() 
