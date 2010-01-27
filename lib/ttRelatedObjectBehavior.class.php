@@ -21,6 +21,14 @@
  *   object_class_column
  *   object_id_column
  * 
+ * Ook een onDelete policy is geimplementeerd via parameter
+ *   on_delete
+ * Wanneer het gerelateerde object verwijderd wordt zijn de opties
+ * (mogelijke waarden voor de on_delete parameter)
+ *     cascade : het gerelateerde object wordt mee verwijderd
+ *     setnull : object_id en object_class worded null
+ *     default : doe niets
+ * 
  * @package CSJ
  * @author Tactics bvba
  * @copyright 2010
@@ -79,6 +87,28 @@ class ttRelatedObjectBehavior
     }
     
     return null;
+  }
+  
+  /**
+   * Implementeert de onDelete cascade/setnull policies
+   */
+  public function preDelete($object)
+  {
+    switch (sfConfig::get('related_object_'.get_class($object).'_on_delete', null))
+    {
+      case 'cascade':
+        $object->delete();
+        break;
+      
+      case 'setnull':
+        $object->setObjectId(null);
+        $object->setObjectClass(null);
+        break;
+      
+      default:
+        // we're cool
+        break;
+    }
   }
   
 }
