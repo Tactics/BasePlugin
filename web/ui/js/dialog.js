@@ -66,7 +66,7 @@
   /**
    * Shows an nice confirm box as alternative to native confirm() 
    */  
-  $.tt.confirm = function(title, text, callback, options)
+  $.tt.confirm = function(title, html, callback, options)
   {
     defaults = {
       buttons: {
@@ -83,13 +83,13 @@
     
     options = $.extend({}, defaults, options);
 		
-		return $.tt.alert(title, text, options);
+		return $.tt.alert(title, html, options);
   }
 
   /**
    * Shows an nice prompt box as alternative to native prompt() 
    */  
-  $.tt.prompt = function(title, text, callback, options)
+  $.tt.prompt = function(title, html, callback, options)
   {
     defaults = {
       buttons: {
@@ -108,10 +108,74 @@
 
     options = $.extend({}, defaults, options);
 		
-    text += '<p><input type="text"/></p>';
+    html += '<p><input type="text"/></p>';
     
-		div = $.tt.alert(title, text, options);
+		div = $.tt.alert(title, html, options);
     div.find('input').focus();
   }
+  
+  /**
+   * Shows a nice window ...
+   *
+   * Returns reference to api no parameter is passedwith
+   *
+   * Options: 
+   *  width
+   *  top
+   *  height
+   */
+  $.fn.tt_window = function(options)
+  {
+    $this = $(this);
+
+    if (options == undefined)
+    {
+      return $this.overlay(); 
+    }
+
+    defaults = {
+      width: "500px",
+      top: 272,
+      overflow: "scroll"
+    };
+
+    if (options.height)
+    {
+      $this.css('height', options.height);
+      $this.css('overflow', options.overflow);
+    }
+    
+    options = $.extend({}, defaults, options);
+    
+    $this
+      .addClass('ttBase-dialog-modal ttBase-window')
+      .css('width', options.width)
+      .overlay({
+          // custom top position 
+          top: options.top,
+       
+          // some expose tweaks suitable for facebox-looking dialogs 
+          expose: {
+              // you might also consider a "transparent" color for the mask 
+              color: '#666', 
+       
+              // load mask a little faster 
+              loadSpeed: 200, 
+       
+              // highly transparent 
+              opacity: 0.5 
+          },
+       
+          // disable this for modal dialog-type of overlays 
+          closeOnClick: false, 
+      });
+      
+    // load it immediately after the construction
+    api = $this.overlay();
+    api.load();
+    
+    return $this;
+  }
+
   
 })(jQuery);
