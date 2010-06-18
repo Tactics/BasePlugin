@@ -1,6 +1,6 @@
 <?php
 
-ttMisc::use_helper('Tag');
+Misc::use_helper('Tag');
 
 /**
  *  This class generates a table...
@@ -176,10 +176,10 @@ class myTable
 		// If applicable: sort order icon
 		if (isset($cell["name"]) && $this->sortField == $cell["name"]) {
 			if ( strtoupper($this->sortOrder) == "ASC" ) {
-			  $html .= "&nbsp;" . image_tag("sorteer_asc.gif");
+			  $html .= "&nbsp;" . image_tag("/ttBase/images/sorteer_asc.gif");
 			}
 			if ( strtoupper($this->sortOrder) == "DESC" ) {
-			  $html .= "&nbsp;" . image_tag("sorteer_desc.gif");
+			  $html .= "&nbsp;" . image_tag("/ttBase/images/sorteer_desc.gif");
 			}
 		}
 
