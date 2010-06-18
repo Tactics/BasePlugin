@@ -16,7 +16,7 @@
  * @package koi
  * @author Gert Vrebos
  */
-class ttArrayPager extends sfPager
+class myArrayPager extends sfPager
 {
   protected $resultsArray = null;
  

@@ -9,7 +9,7 @@
  * @version $Id$
  * @access public
  */
-class ttFilteredPager extends sfPropelPager
+class myFilteredPager extends sfPropelPager
 {
   const TYPE_NULL = 1; // is the given field null (or not), expected 'true', 'false' or ''
   const TYPE_BOOLEAN = 2; // value is either string 'true', string 'false' or '' (last case: doesn't matter, no criterium build)

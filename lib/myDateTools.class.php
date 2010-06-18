@@ -16,7 +16,7 @@
  * @package koi
  * @author Gert Vrebos
  */
-class ttDateTools
+class myDateTools
 {
 
 	/**

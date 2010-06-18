@@ -24,7 +24,7 @@
  * Changed by: Timu EREN
  * Last Changed: 12 / 08 /2006(dd /mm/ YYYY)
  */
-class ttSQLPager
+class mySQLPager
 {
   private
     $page                   = 1,

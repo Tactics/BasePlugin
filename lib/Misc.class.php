@@ -16,7 +16,7 @@
  * @package koi
  * @author Gert Vrebos
  */
-class ttMisc
+class Misc
 {
   /**
    * Misc::use_helper()

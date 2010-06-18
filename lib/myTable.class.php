@@ -8,7 +8,7 @@ ttMisc::use_helper('Tag');
  *
  *
  */
-class ttTable
+class myTable
 {
 	/**
 	 * Information about each column and its header

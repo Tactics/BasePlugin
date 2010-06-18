@@ -13,10 +13,10 @@
 /**
  * Bevat functies om eenvoudiger de database te benaderen
  *
- * @package koi
+ * @package 
  * @author Gert Vrebos
  */
-class ttDbTools
+class myDbTools
 {
   
   /**
