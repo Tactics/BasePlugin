@@ -187,5 +187,189 @@ class ttTextTools
      }
   
      return $string;
-  }  
+  }
+
+/**
+   * Basic converter from HTML text to plain text with optional word wrap
+   *
+   * @param the html text to convert
+   * @param number of characters to wrap by, 0 means no wrapping.
+   */
+	static public function htmlToPlain($htmlsource, $wordwrap = 80)
+  {
+		$htmlsource    = strip_tags($htmlsource, '<br><p>');
+		$htmlsource    = preg_replace('/<br[^>]*>/i', "\n", $htmlsource);
+		$htmlsource    = preg_replace('/<p[^>]*>/i', "\n", $htmlsource);
+		$htmlsource    = preg_replace('/<\/p[^>]*>/i', "\n", $htmlsource);
+
+    if ($wordwrap)
+		{
+      $htmlsource    = wordwrap($htmlsource, $wordwrap);
+    }
+
+		$table         = array_flip(get_html_translation_table(HTML_ENTITIES));
+		$htmlsource  = strtr($htmlsource, $table);
+
+		return $htmlsource;
+	}
+
+
+  /**
+   * Basic converter van plain text to HTML
+   *
+   * @param the html tekst om te converteren
+   */
+	static public function plainToHtml($txt)
+  {
+    if (! $txt)
+    {
+      return '';
+    }
+
+	  // Kills double spaces and spaces inside tags.
+	  while( !( strpos($txt,'  ') === FALSE ) ) $txt = str_replace('  ',' ',$txt);
+	  $txt = str_replace(' >','>',$txt);
+	  $txt = str_replace('< ','<',$txt);
+
+	  // Transforms accents in html entities.
+	  $txt = htmlentities($txt);
+
+	  // We need some HTML entities back!
+	  $txt = str_replace('&quot;','"',$txt);
+	  $txt = str_replace('&lt;','<',$txt);
+	  $txt = str_replace('&gt;','>',$txt);
+	  $txt = str_replace('&amp;','&',$txt);
+
+	  // Ajdusts links - anything starting with HTTP opens in a new window
+	  $txt = str_ireplace("<a href=\"http://","<a target=\"_blank\" href=\"http://",$txt);
+	  $txt = str_ireplace("<a href=http://","<a target=\"_blank\" href=http://",$txt);
+
+	  // Basic formatting
+	  $eol = ( strpos($txt,"\r") === FALSE ) ? "\n" : "\r\n";
+	  $html = '<p>'.str_replace("$eol$eol","</p><p>",$txt).'</p>';
+	  $html = str_replace("$eol","<br />\n",$html);
+	  $html = str_replace("</p>","</p>\n\n",$html);
+	  $html = str_replace("<p></p>","<p>&nbsp;</p>",$html);
+
+	  // Wipes <br> after block tags (for when the user includes some html in the text).
+	  $wipebr = Array("table","tr","td","blockquote","ul","ol","li");
+
+	  for ($x = 0; $x < count($wipebr); $x++)
+    {
+	    $tag = $wipebr[$x];
+	    $html = str_ireplace("<$tag><br />","<$tag>",$html);
+	    $html = str_ireplace("</$tag><br />","</$tag>",$html);
+	  }
+
+	  return $html;
+	}
+
+
+	/**
+	 * Trimt meer karakters dan de PHP trim
+	 *
+	 * @param string De te trimmen tekst
+	 *
+	 * @return string
+	 */
+	public static function realTrim($text)
+  {
+	  return trim($text,"\xA0\x7f..\xff\x0..\x1f ");
+	}
+
+  /**
+   * Strip tekst
+   *
+   * @param de tekst
+   *
+   * @return string De geconverteerde tekst
+   */
+  public static function stripText($text)
+  {
+    $text = strtolower($text);
+
+    // strip all non word chars
+    $text = preg_replace('/\W/', ' ', $text);
+
+    // replace all white space sections with a dash
+    $text = preg_replace('/\ +/', '-', $text);
+
+    // trim dashes
+    $text = preg_replace('/\-$/', '', $text);
+    $text = preg_replace('/^\-/', '', $text);
+
+    return $text;
+  }
+
+	/**
+	 * Checks email address validity
+	 *
+	 * isValidEmailAddress
+	 * from: http://iamcal.com/publish/articles/php/parsing_email
+	 *
+	 * @param string $adres Het te testen adres
+	 *
+	 * @return boolean true indien geldig, false anders
+	 */
+	static function isGeldigEmailAdres ($adres)
+  {
+		$qtext = '[^\\x0d\\x22\\x5c\\x80-\\xff]';
+		$dtext = '[^\\x0d\\x5b-\\x5d\\x80-\\xff]';
+		$atom = '[^\\x00-\\x20\\x22\\x28\\x29\\x2c\\x2e\\x3a-\\x3c\\x3e\\x40\\x5b-\\x5d\\x7f-\\xff]+';
+		$quoted_pair = '\\x5c[\\x00-\\x7f]';
+		$domain_literal = "\\x5b($dtext|$quoted_pair)*\\x5d";
+		$quoted_string = "\\x22($qtext|$quoted_pair)*\\x22";
+		$domain_ref = $atom;
+		$sub_domain = "($domain_ref|$domain_literal)";
+		$word = "($atom|$quoted_string)";
+		$domain = "$sub_domain(\\x2e$sub_domain)*";
+		$local_part = "$word(\\x2e$word)*";
+		$addr_spec = "$local_part\\x40$domain";
+
+		return preg_match("!^$addr_spec$!", $adres) ? 1 : 0;
+	}
+
+	/**
+	 * Formateert een XMLstring geindenteerd
+	 */
+	public static function formatXmlString($xml)
+  {
+    // add marker linefeeds to aid the pretty-tokeniser (adds a linefeed between all tag-end boundaries)
+    $xml = preg_replace('/(>)(<)(\/*)/', "$1\n$2$3", $xml);
+
+    // now indent the tags
+    $token      = strtok($xml, "\n");
+    $result     = ''; // holds formatted version as it is built
+    $pad        = 0; // initial indent
+    $matches    = array(); // returns from preg_matches()
+
+    // scan each line and adjust indent based on opening/closing tags
+    while ($token !== false) :
+
+      // test for the various tag states
+
+      // 1. open and closing tags on same line - no change
+      if (preg_match('/.+<\/\w[^>]*>$/', $token, $matches)) :
+        $indent=0;
+      // 2. closing tag - outdent now
+      elseif (preg_match('/^<\/\w/', $token, $matches)) :
+        $pad--;
+      // 3. opening tag - don't pad this one, only subsequent tags
+      elseif (preg_match('/^<\w[^>]*[^\/]>.*$/', $token, $matches)) :
+        $indent=1;
+      // 4. no indentation needed
+      else :
+        $indent = 0;
+      endif;
+
+      // pad the line with the required number of leading spaces
+      $line    = str_pad($token, strlen($token)+$pad, ' ', STR_PAD_LEFT);
+      $result .= $line . "\n"; // add to the cumulative result, with linefeed
+      $token   = strtok("\n"); // get the next token
+      $pad    += $indent; // update the pad size for subsequent lines
+    endwhile;
+
+    return $result;
+  }
+
 }
