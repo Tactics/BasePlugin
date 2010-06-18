@@ -1,0 +1,152 @@
+/********* TABEL  *********/
+
+/** Basic grid **/
+
+table.grid {
+	width: 100%;
+	margin: 0px;
+	border-spacing: 0px;
+	border: 1px solid #888;
+}
+
+table.grid td {
+	font-weight: normal;
+}
+
+
+/** Gridheader **/
+
+
+/** Columnheaders **/
+
+table.grid thead tr td
+{
+	background-color: #BECDF2;
+	padding: 0px; 
+	font-weight: bold;
+	border: 1px solid /* #E9F1FD; */ white;
+	cursor: pointer;
+}
+
+/** nog fixen !**/
+table.grid thead tr td div
+{
+  padding: 5px;
+  border: 1px solid #BECDF2;
+	background-color: #BECDF2;
+	height: 10px;
+}
+
+table.grid thead tr td.gesorteerd {
+	background-color: #7796E5;
+}
+
+table.grid thead tr td.gesorteerd div {
+  border: 1px solid #7796E5;
+	background-color: #7796E5;
+}
+
+
+table.grid tbody td
+{
+	padding: 1px 4px;
+	margin: 0px;
+}
+
+table.grid tbody td > div
+{
+	overflow: hidden;
+	height: 17px;
+	line-height: 17px;
+}
+
+
+table.grid thead tr td a
+{
+  color: black;
+  text-decoration: none;
+  border-spacing: 0px;
+}
+
+/** Table cells **/
+
+table.grid tbody tr
+{
+  color: #444444;
+	background-color: white;
+}
+
+table.grid tbody tr td {
+	/*border-top: 1px solid #E9F1FD;
+	border-bottom: 1px solid #E9F1FD; */
+}
+
+table.grid tbody tr td {
+  border: none;
+}
+
+table.grid tbody tr.even td {
+}
+
+/*
+table.grid tbody tr td a {
+  color: #0000CC;
+}
+*/
+
+
+table.grid tbody tr.even td {
+  color: black;
+/*	border-top: 1px solid #E9F1FD;
+	border-bottom: 1px solid #E9F1FD; */
+	background-color: #EDF3FE;
+}
+
+
+table.grid tbody tr.static td,
+table.grid tbody tr.static:hover td {
+	background-color: #DAE3F8;
+	border: 1px solid #E9F1FD;
+/*	border-top: 1px solid #E9F1FD;
+	border-bottom: 1px solid #E9F1FD;*/
+}
+
+
+table.grid tbody tr.gearchiveerd td a,
+table.grid tbody tr.gearchiveerd td
+{
+  color: #444;
+  background-color: #FFFFAA;
+}
+
+table.grid tbody tr.even.gearchiveerd td a,
+table.grid tbody tr.even.gearchiveerd td
+{
+  color: #444;
+  background-color: #FFFF7F;
+}
+
+table.grid tbody tr:hover td,
+table.grid tbody tr.gearchiveerd:hover td,
+table.grid tbody tr.even.gearchiveerd:hover td
+{
+/*	background-color: white;
+	border-top: 1px solid #DCDCDC;
+	border-bottom: 1px solid #DCDCDC;
+	*/
+	background-color: #6681C3;
+	color: white; 
+}
+
+table.grid tbody tr:hover td a,
+table.grid tbody tr.gearchiveerd:hover td a,
+table.grid tbody tr.even.gearchiveerd:hover td a
+{
+/*	background-color: white;
+	border-top: 1px solid #DCDCDC;
+	border-bottom: 1px solid #DCDCDC;
+	*/
+	color: white;
+	background-color: #6681C3;
+	text-decoration: underline; 
+}
