@@ -301,7 +301,7 @@ class myFilteredPager extends sfPropelPager
 
       if ($field['value'] == 'ISNULL')
       {
-        $this->criteria->add($db_fieldname, null, Criteria::ISNULL);
+        $this->criteria->add($field['dbFieldname'], null, Criteria::ISNULL);
       }
       else if ($field['value'] != '')
       {
