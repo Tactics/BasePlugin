@@ -379,6 +379,11 @@ class myDate
     $this->seconds = $s % 60;
   }
 
+	public function getWeekOfYear()
+	{
+	  return date('W', $this->getTimestamp());
+	}
+
 
   /**
    * Return the day of week number
