@@ -128,6 +128,21 @@
   {
     $this = $(this);
 
+    defaults = {
+      buttons: {
+				'Ja': function() {
+					callback ? callback(true, this) : null;
+				},
+				'Nee': function() {
+					callback ? callback(false, this) : null;
+				}
+			},
+
+      className: 'confirm'
+		};
+
+    options = $.extend({}, defaults, options);
+    
     if (options == undefined)
     {
       return $this.overlay(); 
@@ -167,7 +182,7 @@
           },
        
           // disable this for modal dialog-type of overlays 
-          closeOnClick: false, 
+          closeOnClick: false
       });
       
     // load it immediately after the construction
