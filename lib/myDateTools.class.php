@@ -19,6 +19,52 @@
 class myDateTools
 {
 
+    
+    public static function isValidDate($date, $culture = null)
+    {
+
+      if (!$date) return false;
+      if (!$culture)
+          $culture = sfContext::getInstance()->getUser()->getCulture();
+
+      $dateFormatInfo = @sfDateTimeFormatInfo::getInstance($culture);
+      $dateFormat = $dateFormatInfo->getShortDatePattern();
+
+      
+      // We construct the regexp based on date format
+      $dateRegexp = preg_replace('/[dmy]+/i', '(\d+)', $dateFormat);
+
+      // We parse date format to see where things are (m, d, y)
+      $a = array(
+          'd' => strpos($dateFormat, 'd'),
+          'm' => strpos($dateFormat, 'M'),
+          'y' => strpos($dateFormat, 'y'),
+      );
+      $tmp = array_flip($a);
+      ksort($tmp);
+      $i = 0;
+      $c = array();
+      foreach ($tmp as $value) $c[++$i] = $value;
+      $datePositions = array_flip($c);
+
+      // We find all elements
+      preg_match("~$dateRegexp~", $date, $matches);
+
+      if (count($matches) < 4)
+          return false;
+
+      $m = $matches[$datePositions['m']];
+      $d = $matches[$datePositions['d']];
+      $y = $matches[$datePositions['y']];
+      // Extra controle voor propel
+      if (! strtotime(myDateTools::cultureDateToPropelDate($date))) return false;
+      
+      if (!checkdate($m, $d, $y))
+          return false;
+
+      return true;
+    }
+
 	/**
 	 * Convert a datestring from userinput (through Calendar) to a propel-parsable date string.
 	 * Is used to set dates on propel objects directly from userinput.
@@ -26,7 +72,7 @@ class myDateTools
 	static public function cultureDateToPropelDate($culture_date, $options = array())
   {
 	  $date = null;
-	  
+
     $result = sfI18N::getDateForCulture($culture_date, sfContext::getInstance()->getUser()->getCulture());
     
     if (is_array($result))
