@@ -48,7 +48,7 @@ class myFilteredPager extends sfPropelPager
   /**
    * Constructor
    */
-  public function __construct($class, $namespace, $maxPerPage = null, $defaultOrderBy = '')
+  public function __construct($class, $namespace, $maxPerPage = null, $defaultOrderBy = '', $sortAsc = true)
   {
     $maxPerPage = $maxPerPage ? $maxPerPage : sfConfig::get('app_default_pager_size');
    
@@ -79,14 +79,14 @@ class myFilteredPager extends sfPropelPager
     // Ordering
     if (self::$request->getParameter('reset'))
     {
-      $this->orderAsc = true;
+      $this->orderAsc = $sortAsc;
       $this->orderBy = $defaultOrderBy;
       $this->setPage(1);
       $this->set('page', 1);
     }
     else
     {
-      $this->orderAsc = self::$attributeHolder->get("orderasc", true, $this->namespace);
+      $this->orderAsc = self::$attributeHolder->get("orderasc", $sortAsc, $this->namespace);
   		$this->setPage(self::updateAndGetRequestParameter("page", $this->namespace, 1));
 
   		// Op volgorde geklikt ?
@@ -382,6 +382,14 @@ class myFilteredPager extends sfPropelPager
     return $this->orderBy;
   }
   
+  /**
+   * Zet order ascending/descending
+   */
+  public function setOrderAsc($asc = true)
+  {
+    $this->orderAsc = $asc;
+  }
+
   /**
    * Get order ascending/descending
    */
