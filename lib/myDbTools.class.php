@@ -109,6 +109,27 @@ class myDbTools
     return $result;
   }
   
+  /**
+   * Geeft het volledige resultaat van een SQL query als 2D array terug
+   *
+   * Opgelet: enkel gebruiken voor gegarandeerd beperkte resultsets
+   * (met limit, of by design)
+   *
+   * @param string $sql
+   *
+   * @return array
+   */
+  static public function getListFromSQL($sql, $getter = 'getInt', $positie = 1)
+  {
+    $rs = myDbTools::getResultSet($sql);
 
+    $result = array();
+    while ($rs->next())
+    {
+      $result[] = $rs->$getter($positie);
+    }
+
+    return $result;
+  }
 }
 
