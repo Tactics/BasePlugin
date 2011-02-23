@@ -197,7 +197,7 @@ class myDateTools
       }
       else if ($ts + 120 > $now)
       {
-        return '��n minuut geleden';   
+        return '&eacute;&eacute;n minuut geleden';
       }
       else if ((($ts + 1860) > $now) && (($ts + 1740) < $now))
       {
