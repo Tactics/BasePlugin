@@ -793,7 +793,7 @@ class myDate
     return $this->addDays(7 * $n);
   }
 
-  public function subtractWeek($n)
+  public function subtractWeeks($n)
   {
     return $this->subtractDays(7 * $n);
   }
