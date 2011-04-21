@@ -840,7 +840,7 @@ class myDate
     {
       $this->setSecondsPastMidnight($newSeconds % 86400);
       
-      if ($d = intval($s / 86400))
+      if ($d = intval($newSeconds / 86400))
       {
         $this->addDays($d);
       }
@@ -849,7 +849,7 @@ class myDate
     {
       $this->setSecondsPastMidnight(86400 - abs($newSeconds % 86400));
       
-      if ($d = intval($s / 86400))
+      if ($d = intval($newSeconds / 86400))
       {
         $this->addDays($d - 1);
       }
