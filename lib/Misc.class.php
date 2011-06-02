@@ -93,5 +93,21 @@ class Misc
 
     return $pass;    
   }
-
+  
+  
+  /**
+   * genereer een array van de gegeven $objects, geindexeerd op basis van de gegeven $indexGetter
+   * 
+   * @param array $objects : objects to cache
+   * @param string $indexGetter : get method om de index van de cached objects op te halen, default de id van het object
+   * 
+   * @return array
+   */
+  public static function buildIndexedCache($objects, $indexGetter = 'getId')
+  {
+    if (empty($objects)) 
+      return array();
+    
+    return eval("return array_combine(array_map(create_function('\$object', 'return \$object->{$indexGetter}();'), \$objects), \$objects);");
+  }
 }
