@@ -50,7 +50,7 @@ class myFilteredPager extends sfPropelPager
    */
   public function __construct($class, $namespace, $maxPerPage = null, $defaultOrderBy = '', $sortAsc = true)
   {
-    $maxPerPage = $maxPerPage ? $maxPerPage : sfConfig::get('app_default_pager_size');
+    $maxPerPage = ($maxPerPage !== null) ? $maxPerPage : sfConfig::get('app_default_pager_size');
    
     // Default order by primary key
     if (! $defaultOrderBy)
