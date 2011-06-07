@@ -103,11 +103,11 @@ class Misc
    * 
    * @return array
    */
-  public static function buildIndexedCache($objects, $indexGetter = 'getId')
+  public static function buildIndexedCache($objects, $indexGetter = 'getId()')
   {
     if (empty($objects)) 
       return array();
     
-    return eval("return array_combine(array_map(create_function('\$object', 'return \$object->{$indexGetter}();'), \$objects), \$objects);");
+    return eval("return array_combine(array_map(create_function('\$object', 'return \$object->{$indexGetter};'), \$objects), \$objects);");
   }
 }
