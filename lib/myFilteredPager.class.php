@@ -318,7 +318,10 @@ class myFilteredPager extends sfPropelPager
     }
     
     // Ordering
-		if ($this->orderBy != "")
+    // nakijken of orderBy van de pager niet in de criteria overschreven werd
+    // indien dit wel gebeurde, moet de orderBy van de pager genegeerd worden    
+    $critOrderByColumns = $this->criteria->getOrderByColumns();
+		if (($this->orderBy != "") && (! in_array($this->orderBy . ' ' . Criteria::DESC, $critOrderByColumns)) && (! in_array($this->orderBy . ' ' . Criteria::ASC, $critOrderByColumns)))
     {
 		  $this->orderAsc ?
         $this->criteria->addAscendingOrderByColumn($this->orderBy)
