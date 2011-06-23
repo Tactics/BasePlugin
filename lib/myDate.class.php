@@ -374,7 +374,7 @@ class myDate
 
   public function setSecondsPastMidnight($s)
   {
-    $this->hour = intval($s / 3600);
+    $this->hours = intval($s / 3600);
     $this->minutes = intval(($s % 3600) / 60 );
     $this->seconds = $s % 60;
   }
