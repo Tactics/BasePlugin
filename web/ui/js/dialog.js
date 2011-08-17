@@ -115,9 +115,10 @@
   }
   
   /**
-   * Shows a nice window ...
+   * Creates a modal window
    *
-   * Returns reference to api no parameter is passedwith
+   * Returns the jQuery object when options are provided (window is created)
+   * Returns reference to api when no parameter is passed (eg for api.close())
    *
    * Options: 
    *  width
@@ -188,8 +189,8 @@
     // load it immediately after the construction
     api = $this.overlay();
     api.load();
-    
-    return $this;
+  
+    return api;
   }
 
   
