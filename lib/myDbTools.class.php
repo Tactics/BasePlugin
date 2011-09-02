@@ -22,12 +22,12 @@ class myDbTools
   /**
    * Voert een query uit en geeft de resultset terug
    */
-  static public function getResultSet($sql)
+  static public function getResultSet($sql, $fetchmode = ResultSet::FETCHMODE_NUM)
   {
     $con = Propel::getConnection();
     
     $stmt = $con->createStatement();
-    $rs = $stmt->executeQuery($sql, ResultSet::FETCHMODE_NUM);
+    $rs = $stmt->executeQuery($sql, $fetchmode);
 		
 		return $rs;
   }
