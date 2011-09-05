@@ -336,7 +336,7 @@ class myFilteredPager extends sfPropelPager
    * Initialize the pager
    */
   public function init()
-  {
+  { 
     $this->inited = true;
     
     if ($this->criteriaDirty)
