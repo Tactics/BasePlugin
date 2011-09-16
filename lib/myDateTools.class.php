@@ -118,6 +118,27 @@ class myDateTools
 		  return sprintf('%02u', $time_array["hour"]) . ":" . sprintf('%02u', $time_array["minute"]);
 		}
 	}
+  
+  /**
+	 * Convert a propeltime to minutes
+	 * Is used to make calculations
+	 */
+	static public function propelTimeToMinutes($propel_time)
+  {
+    $tmp = explode(':', $propel_time);
+    if (
+					 count($tmp) != 2
+				|| ! is_numeric($tmp[0])
+				|| ! is_numeric($tmp[1])
+			 )
+		{
+		  return null;
+		}
+		else
+		{
+		  return $tmp[0] * 60 + $tmp[1];
+		}
+	}
 	
 	/**
 	 * Combination of cultureDateToPropelDate and formTimeToPropelTime
