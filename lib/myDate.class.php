@@ -195,7 +195,7 @@ class myDate
 	/**
 	 * Sets the hours
 	 */
-	public function setHours($y)
+	public function setHours($h)
 	{
 	  $this->hours = $h;
 	  return $this;
