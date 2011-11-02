@@ -458,7 +458,7 @@ class myFilteredPager extends sfPropelPager
     $rs = call_user_func(array($this->getClassPeer(), 'doSelectRs'), $c);
     $rs->last();
     
-    while($rs->previous() && ($rs->getInt($pkColumn) != $currentPk)) {}
+    while(($rs->getInt($pkColumn) != $currentPk) && $rs->previous()) {}
 
     $previousPk = $rs->previous() ? $rs->getInt($pkColumn) : null;
     return $previousPk ? call_user_func(array($this->getClassPeer(), 'retrieveByPk'), $previousPk) : null;
