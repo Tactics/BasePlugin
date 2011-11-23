@@ -29,12 +29,20 @@ class myFilteredPager extends sfPropelPager
     $attributeHolder = null;
   
   
+  /**
+   * Initialize static members
+   */
   public static function initStatic()
   {
     self::$request = sfContext::getInstance()->getRequest();
     self::$attributeHolder = sfContext::getInstance()->getUser()->getAttributeHolder();
   }
 
+  /**
+   * Returns the pager results of the current page
+   * 
+   * @return array[]Object
+   */
   public function getResults()
   {
     if (! $this->inited)
@@ -47,6 +55,12 @@ class myFilteredPager extends sfPropelPager
 
   /**
    * Constructor
+   * 
+   * @param string $class Name of object class to page
+   * @param string $namespace Session namespace to store pager state into
+   * @param integer $maxPerPage Number of objects per page
+   * @param string $defaultOrderBy Default order by field
+   * @param boolean $sortAsc default true Default order asc/desc status-
    */
   public function __construct($class, $namespace, $maxPerPage = null, $defaultOrderBy = '', $sortAsc = true)
   {
@@ -117,7 +131,14 @@ class myFilteredPager extends sfPropelPager
   }
   
   /**
+   * Get a parameter from the request parameters, if available update session state, otherwise
+   * get last parameter value from session state.
    * 
+   * @param string $name
+   * @param string $namespace
+   * @param mixed $default
+   * 
+   * @return mixed
    */
   static public function updateAndGetRequestParameter($name, $namespace, $default = null)
   { 
@@ -145,6 +166,10 @@ class myFilteredPager extends sfPropelPager
   
   /**
    * Prepare a string criterium (wildcart support)
+   * 
+   * @param mixed $field
+   * 
+   * @return mixed
    */
   private function prepareValue($field)
   {
@@ -194,6 +219,11 @@ class myFilteredPager extends sfPropelPager
   
   /**
    * Add an item to the filter
+   * 
+   * @param string $filterField
+   * @param array $options
+   * 
+   * @return mixed
    */
   public function add($filterField, $options = array())
   {
@@ -226,6 +256,11 @@ class myFilteredPager extends sfPropelPager
   
   /**
    * Add an item to the filter and return the current value; (=alias for add)
+   * 
+   * @param string $filterField
+   * @param array $options
+   * 
+   * @return mixed
    */
   public function addAndGet($filterField, $options = array())
   {
@@ -234,6 +269,11 @@ class myFilteredPager extends sfPropelPager
   
   /**
    * Get the value of a field that has been added to the filter
+   * 
+   * @param string $filterField
+   * @param string $defaultValue
+   * 
+   * @return mixed
    */
   public function get($filterField, $defaultValue = null)
   {
@@ -243,6 +283,9 @@ class myFilteredPager extends sfPropelPager
   
   /**
    * Set the value of a filter field (and remember in session)
+   * 
+   * @param string $filterField
+   * @param mixed $value
    */
   public function set($filterField, $value)
   {
@@ -258,6 +301,9 @@ class myFilteredPager extends sfPropelPager
 
   /**
    * Overwrite the value of a field for use in the internal criteria object
+   * 
+   * @param string $filterField
+   * @param mixed $value
    */
   public function overwrite($filterField, $value)
   {
@@ -350,6 +396,8 @@ class myFilteredPager extends sfPropelPager
   
   /**
    * Return the current criteria object
+   * 
+   * @return Criteria
    */
   public function getCriteria()
   {
@@ -364,6 +412,8 @@ class myFilteredPager extends sfPropelPager
   
   /**
    * Get all filter falues (in array)
+   * 
+   * @return array
    */
   public function getValues()
   {
@@ -379,6 +429,8 @@ class myFilteredPager extends sfPropelPager
   
   /**
    * Get order by field
+   * 
+   * @return string
    */
   public function getOrderBy()
   {
@@ -387,6 +439,8 @@ class myFilteredPager extends sfPropelPager
   
   /**
    * Zet order ascending/descending
+   * 
+   * @param boolean $asc
    */
   public function setOrderAsc($asc = true)
   {
@@ -395,6 +449,8 @@ class myFilteredPager extends sfPropelPager
 
   /**
    * Get order ascending/descending
+   * 
+   * @return boolean
    */
   public function getOrderAsc()
   {
@@ -404,7 +460,7 @@ class myFilteredPager extends sfPropelPager
   /**
    * Get first object
    * 
-   * @return object
+   * @return Object
    */
   public function getFirstObject()
   {
@@ -414,7 +470,7 @@ class myFilteredPager extends sfPropelPager
   /**
    * Get last object
    * 
-   * @return object
+   * @return Object
    */
   public function getLastObject()
   {
@@ -427,7 +483,7 @@ class myFilteredPager extends sfPropelPager
    * @param integer $currentPk : the id of the object right before the one we need
    * @param string $pkColumn : column number of the primary key
    * 
-   * @return object
+   * @return Object
    */
   public function getNextObjectByPk($currentPk, $pkColumn = 1)
   {
@@ -448,7 +504,7 @@ class myFilteredPager extends sfPropelPager
    * @param integer $currentPk : the id of the object right before the one we need
    * @param string $pkColumn : column number of the primary key
    * 
-   * @return object
+   * @return Object
    */
   public function getPreviousObjectByPk($currentPk, $pkColumn = 1)
   {
