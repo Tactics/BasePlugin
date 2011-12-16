@@ -229,7 +229,6 @@ class myFilteredPager extends sfPropelPager
   {
     $dbFieldname    = isset($options['dbFieldname']) ? $options['dbFieldname'] : $filterField; 
     $filterField    = str_replace('.', '_', $filterField);
-    $comparison     = isset($options['comparison']) ? $options['comparison'] : Criteria::EQUAL;
     $addToCriteria  = isset($options['addToCriteria']) ? $options['addToCriteria'] : true;
     $type           = isset($options['type']) ? $options['type'] : null;
     
@@ -240,6 +239,7 @@ class myFilteredPager extends sfPropelPager
     
     $default        = isset($options['default']) ? $options['default'] : null;
     $value          = isset($options['value']) ? $options['value'] : self::updateAndGetRequestParameter($filterField, $this->namespace, $default);
+    $comparison     = isset($options['comparison']) ? $options['comparison'] : (is_array($value) ? Criteria::IN : Criteria::EQUAL);
     
     $this->filter[$filterField] = array(
       'dbFieldname' => $dbFieldname,
