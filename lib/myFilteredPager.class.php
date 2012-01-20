@@ -171,7 +171,7 @@ class myFilteredPager extends sfPropelPager
    * 
    * @return mixed
    */
-  private function prepareValue($field)
+  public function prepareValue($field)
   {
     $value = $field['value'];
     
