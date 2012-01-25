@@ -170,10 +170,10 @@ class mySQLPager
     return $results;
   }
  
-  public function getResults()
+  public function getResults($fetchMode = ResultSet::FETCHMODE_NUM)
   {
     $c = $this->getQuery();
-    return $c->executeQuery(ResultSet::FETCHMODE_NUM);
+    return $c->executeQuery($fetchMode);
   }
  
   public function getFirstIndice()
