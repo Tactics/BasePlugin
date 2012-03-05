@@ -311,16 +311,16 @@ class myTable
 			if ( ! is_array($rowData[$i]) ){
 			  $cellContent = $rowData[$i];
 			  $html .= " title=\"" . htmlentities(html_entity_decode(strip_tags($cellContent)));
+        $html .= '"';
 			}
 			else if ( is_array($rowData[$i]) && isset($rowData[$i]["content"]) ) {
 				$cellContent = $rowData[$i]["content"];
 				$html .= " title=\"" . htmlentities(html_entity_decode(strip_tags($cellContent)));
+        $html .= '"';
 			}
 			else {
 			  $cellContent = "&nbsp;";
 			}
-      
-      $html .= '"';
       
       // Insert user defined attributes for the td tag
 			if (is_array($rowData[$i]) && isset($rowData[$i]['divAttributes']))
