@@ -110,4 +110,18 @@ class Misc
     
     return eval("return array_combine(array_map(create_function('\$object', 'return \$object->{$indexGetter};'), \$objects), \$objects);");
   }
+  
+  /**
+   * Zet browsersheaders zo dat het document als MS XLS bestand herkend wordt
+   */
+  public static function setExcelHeaders($filename)
+  {
+    $response = sfContext::getInstance()->getResponse();
+
+    $response->setContentType('application/ms-excel; charset=utf-8');
+    $response->setHttpHeader('Content-Language', 'nl');
+    $response->addVaryHttpHeader('Accept-Language');
+    $response->addCacheControlHttpHeader('no-cache');
+    $response->setHttpHeader('Content-Disposition', 'attachment; filename=' . $filename);
+  }
 }
