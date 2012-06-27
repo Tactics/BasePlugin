@@ -310,12 +310,18 @@ class myTable
 			// Cell content or empty
 			if ( ! is_array($rowData[$i]) ){
 			  $cellContent = $rowData[$i];
-			  $html .= " title=\"" . htmlentities(html_entity_decode(strip_tags($cellContent)));
+                          if (! isset($rowData[$i]['divAttributes']['title']))
+                          {
+                            $html .= " title=\"" . htmlentities(html_entity_decode(strip_tags($cellContent)));
+                          }
         $html .= '"';
 			}
 			else if ( is_array($rowData[$i]) && isset($rowData[$i]["content"]) ) {
 				$cellContent = $rowData[$i]["content"];
-				$html .= " title=\"" . htmlentities(html_entity_decode(strip_tags($cellContent)));
+                                if (! isset($rowData[$i]['divAttributes']['title']))
+                                {
+                                  $html .= " title=\"" . htmlentities(html_entity_decode(strip_tags($cellContent)));
+                                }
         $html .= '"';
 			}
 			else {
@@ -328,7 +334,7 @@ class myTable
         foreach($rowData[$i]['divAttributes'] as $attribute => $value)
         {
           $html .= " " . $attribute . '="' . addslashes($value) . '"';        
-        }												
+        }											
 			}
 			
 			$html .= ">";
