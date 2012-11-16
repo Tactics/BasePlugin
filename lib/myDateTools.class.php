@@ -142,11 +142,38 @@ class myDateTools
 	
 	/**
 	 * Combination of cultureDateToPropelDate and formTimeToPropelTime
+   * 
+   * Works with either time_array or time in the culture_date
 	 */
-	static public function cultureDateTimeToPropelDatetime($culture_date, $time_array)
+	static public function cultureDateTimeToPropelDatetime($culture_date, $time_array = null)
   {
+    if (! $culture_date)
+    {
+      return null;
+    }
+    
+    if ($time_array === null)
+    {
+      $ts = sfI18N::getTimestampForCulture($culture_date, sfContext::getInstance()->getUser()->getCulture());
+      
+      return $date = date('Y-m-d H:i:s', $ts);
+    }
+    
 		return $culture_date ? (myDateTools::cultureDateToPropelDate($culture_date) . " " . myDateTools::formTimeToPropelTime($time_array)) : null;
 	}
+  
+  
+  /**
+	 * Combination of cultureDateToPropelDate and formTimeToPropelTime
+   * 
+   * Works with either time_array or time in the culture_date
+	 */
+	static public function cultureDateTimeToTimestamp($culture_date, $time_array = null)
+  {
+    $propelDate = self::cultureDateTimeToPropelDatetime($culture_date, $time_array);
+    return strtotime($propelDate);
+	}
+  
 	
 	static public function cultureDateToMyDate($culture_date)
   {
