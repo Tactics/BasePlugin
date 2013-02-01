@@ -1,52 +1,47 @@
 /**
- * tools.overlay 1.1.2 - Overlay HTML with eye candy.
+ * @license 
+ * jQuery Tools @VERSION Overlay - Overlay base. Extend it.
  * 
- * Copyright (c) 2009 Tero Piirainen
- * http://flowplayer.org/tools/overlay.html
+ * NO COPYRIGHTS OR LICENSES. DO WHAT YOU LIKE.
+ * 
+ * http://flowplayer.org/tools/overlay/
  *
- * Dual licensed under MIT and GPL 2+ licenses
- * http://www.opensource.org/licenses
- *
- * Launch  : March 2008
- * Date: ${date}
- * Revision: ${revision} 
+ * Since: March 2008
+ * Date: @DATE 
  */
 (function($) { 
 
 	// static constructs
-	$.tools = $.tools || {};
+	$.tools = $.tools || {version: '@VERSION'};
 	
 	$.tools.overlay = {
-		
-		version: '1.1.2',
 		
 		addEffect: function(name, loadFn, closeFn) {
 			effects[name] = [loadFn, closeFn];	
 		},
 	
 		conf: {  
-			top: '10%', 
-			left: 'center',
-			absolute: false,
-			
-			speed: 'normal',
+			close: null,	
+			closeOnClick: true,
+			closeOnEsc: true,			
 			closeSpeed: 'fast',
 			effect: 'default',
 			
-			close: null,	
-			oneInstance: true,
-			closeOnClick: true,
-			closeOnEsc: true, 
-			api: false,
-			expose: null,
+			// since 1.2. fixed positioning not supported by IE6
+			fixed: !$.browser.msie || $.browser.version > 6, 
 			
-			// target element to be overlayed. by default taken from [rel]
-			target: null 
+			left: 'center',		
+			load: false, // 1.2
+			mask: null,  
+			oneInstance: true,
+			speed: 'normal',
+			target: null, // target element to be overlayed. by default taken from [rel]
+			top: '10%'
 		}
 	};
 
 	
-	var effects = {};
+	var instances = [], effects = {};
 		
 	// the default effect. nice and easy!
 	$.tools.overlay.addEffect('default', 
@@ -55,37 +50,52 @@
 			onLoad/onClose functions must be called otherwise none of the 
 			user supplied callback methods won't be called
 		*/
-		function(onLoad) { 
-			this.getOverlay().fadeIn(this.getConf().speed, onLoad); 
+		function(pos, onLoad) {
+			
+			var conf = this.getConf(),
+				 w = $(window);				 
+				
+			if (!conf.fixed)  {
+				pos.top += w.scrollTop();
+				pos.left += w.scrollLeft();
+			} 
+				
+			pos.position = conf.fixed ? 'fixed' : 'absolute';
+			this.getOverlay().css(pos).fadeIn(conf.speed, onLoad); 
 			
 		}, function(onClose) {
 			this.getOverlay().fadeOut(this.getConf().closeSpeed, onClose); 			
 		}		
-	);
-	
-		
-	var instances = [];		
+	);		
 
 	
 	function Overlay(trigger, conf) {		
 		
 		// private variables
-		var self = this, 
-			 $self = $(this),
+		var self = this,
+			 fire = trigger.add(self),
 			 w = $(window), 
-			 closers,
+			 closers,            
 			 overlay,
 			 opened,
-			 expose = conf.expose && $.tools.expose.version;
+			 maskConf = $.tools.expose && (conf.mask || conf.expose),
+			 uid = Math.random().toString().slice(10);		
 		
-		// get overlay and triggerr
+			 
+		// mask configuration
+		if (maskConf) {			
+			if (typeof maskConf == 'string') { maskConf = {color: maskConf}; }
+			maskConf.closeOnClick = maskConf.closeOnEsc = false;
+		}			 
+		 
+		// get overlay and trigger
 		var jq = conf.target || trigger.attr("rel");
 		overlay = jq ? $(jq) : null || trigger;	
 		
 		// overlay not found. cannot continue
 		if (!overlay.length) { throw "Could not find Overlay: " + jq; }
 		
-		// if trigger is given - assign it's click event
+		// trigger's click event
 		if (trigger && trigger.index(overlay) == -1) {
 			trigger.click(function(e) {				
 				self.load(e);
@@ -93,20 +103,13 @@
 			});
 		}   			
 		
-		// bind all callbacks from configuration
-		$.each(conf, function(name, fn) {
-			if ($.isFunction(fn)) { $self.bind(name, fn); }
-		});   
-		
-		
 		// API methods  
 		$.extend(self, {
 
 			load: function(e) {
 				
 				// can be opened only once
-				if (self.isOpened()) { return self; } 
-
+				if (self.isOpened()) { return self; }
 				
 				// find the effect
 		 		var eff = effects[conf.effect];
@@ -122,22 +125,20 @@
 				// onBeforeLoad
 				e = e || $.Event();
 				e.type = "onBeforeLoad";
-				$self.trigger(e);				
+				fire.trigger(e);				
 				if (e.isDefaultPrevented()) { return self; }				
 
 				// opened
 				opened = true;
 				
-				// possible expose effect
-				if (expose) { overlay.expose().load(e); }				
+				// possible mask effect
+				if (maskConf) { $(overlay).expose(maskConf); }				
 				
-				// calculate end position 
-				var top = conf.top;					
-				var left = conf.left;
-
-				// get overlay dimensions
-				var oWidth = overlay.outerWidth({margin:true});
-				var oHeight = overlay.outerHeight({margin:true}); 
+				// position & dimensions 
+				var top = conf.top,					
+					 left = conf.left,
+					 oWidth = overlay.outerWidth(true),
+					 oHeight = overlay.outerHeight(true); 
 				
 				if (typeof top == 'string')  {
 					top = top == 'center' ? Math.max((w.height() - oHeight) / 2, 0) : 
@@ -145,52 +146,42 @@
 				}				
 				
 				if (left == 'center') { left = Math.max((w.width() - oWidth) / 2, 0); }
-				
-				if (!conf.absolute)  {
-					top += w.scrollTop();
-					left += w.scrollLeft();
-				} 
-				
-				// position overlay
-				overlay.css({top: top, left: left, position: 'absolute'}); 
-				
-				// onStart
-				e.type = "onStart";
-				$self.trigger(e); 
+
 				
 		 		// load effect  		 		
-				eff[0].call(self, function() {					
+				eff[0].call(self, {top: top, left: left}, function() {					
 					if (opened) {
 						e.type = "onLoad";
-						$self.trigger(e);
+						fire.trigger(e);
 					}
 				}); 				
-		
+
+				// mask.click closes overlay
+				if (maskConf && conf.closeOnClick) {
+					$.mask.getMask().one("click", self.close); 
+				}
+				
 				// when window is clicked outside overlay, we close
-				if (conf.closeOnClick) {					
-					$(document).bind("click.overlay", function(e) { 
-						if (!self.isOpened()) { return; }
-						var et = $(e.target); 
-						if (et.parents(overlay).length > 1) { return; }
-						$.each(instances, function() {
-							this.close(e);
-						}); 
+				if (conf.closeOnClick) {
+					$(document).on("click." + uid, function(e) { 
+						if (!$(e.target).parents(overlay).length) { 
+							self.close(e); 
+						}
 					});						
 				}						
-				
+			
 				// keyboard::escape
-				if (conf.closeOnEsc) {
-					
+				if (conf.closeOnEsc) { 
+
 					// one callback is enough if multiple instances are loaded simultaneously
-					$(document).unbind("keydown.overlay").bind("keydown.overlay", function(e) {
-						if (e.keyCode == 27) {
-							$.each(instances, function() {
-								this.close(e);								
-							});	 
+					$(document).on("keydown." + uid, function(e) {
+						if (e.keyCode == 27) { 
+							self.close(e);	 
 						}
 					});			
 				}
 
+				
 				return self; 
 			}, 
 			
@@ -200,7 +191,7 @@
 				
 				e = e || $.Event();
 				e.type = "onBeforeClose";
-				$self.trigger(e);				
+				fire.trigger(e);				
 				if (e.isDefaultPrevented()) { return; }				
 				
 				opened = false;
@@ -208,26 +199,17 @@
 				// close effect
 				effects[conf.effect][1].call(self, function() {
 					e.type = "onClose";
-					$self.trigger(e); 
+					fire.trigger(e); 
 				});
 				
-				// if all instances are closed then we unbind the keyboard / clicking actions
-				var allClosed = true;
-				$.each(instances, function() {
-					if (this.isOpened()) { allClosed = false; }
-				});				
+				// unbind the keyboard / clicking actions
+				$(document).off("click." + uid + " keydown." + uid);		  
 				
-				if (allClosed) {
-					$(document).unbind("click.overlay").unbind("keydown.overlay");		
+				if (maskConf) {
+					$.mask.close();		
 				}
-				
-							
+				 
 				return self;
-			}, 
-			
-			// @deprecated
-			getContent: function() {
-				return overlay;	
 			}, 
 			
 			getOverlay: function() {
@@ -249,82 +231,54 @@
 			// manipulate start, finish and speeds
 			getConf: function() {
 				return conf;	
-			},
-
-			// bind
-			bind: function(name, fn) {
-				$self.bind(name, fn);
-				return self;	
-			},		
-			
-			// unbind
-			unbind: function(name) {
-				$self.unbind(name);
-				return self;	
 			}			
 			
 		});
 		
 		// callbacks	
-		$.each("onBeforeLoad,onStart,onLoad,onBeforeClose,onClose".split(","), function(i, ev) {
-			self[ev] = function(fn) {
-				return self.bind(ev, fn);	
+		$.each("onBeforeLoad,onStart,onLoad,onBeforeClose,onClose".split(","), function(i, name) {
+				
+			// configuration
+			if ($.isFunction(conf[name])) { 
+				$(self).on(name, conf[name]); 
+			}
+
+			// API
+			self[name] = function(fn) {
+				if (fn) { $(self).on(name, fn); }
+				return self;
 			};
 		});
-		
-		
-		// exposing effect
-		if (expose) {
-			
-			// expose configuration
-			if (typeof conf.expose == 'string') { conf.expose = {color: conf.expose}; }
-						
-			$.extend(conf.expose, {
-				api: true,
-				closeOnClick: conf.closeOnClick,
-				
-				// only overlay control's the esc button
-				closeOnEsc: false
-			});
-			
-			// initialize expose api
-			var ex = overlay.expose(conf.expose);
-			
-			ex.onBeforeClose(function(e) {
-				self.close(e);		
-			});
-			
-			self.onClose(function(e) {
-				ex.close(e);		
-			});
-		}		
 		
 		// close button
 		closers = overlay.find(conf.close || ".close");		
 		
 		if (!closers.length && !conf.close) {
-			closers = $('<div class="close"></div>');
+			closers = $('<a class="close"></a>');
 			overlay.prepend(closers);	
 		}		
 		
 		closers.click(function(e) { 
 			self.close(e);  
-		});					
+		});	
+		
+		// autoload
+		if (conf.load) { self.load(); }
+		
 	}
 	
 	// jQuery plugin initialization
 	$.fn.overlay = function(conf) {   
 		
 		// already constructed --> return API
-		var el = this.eq(typeof conf == 'number' ? conf : 0).data("overlay");
+		var el = this.data("overlay");
 		if (el) { return el; }	  		 
 		
 		if ($.isFunction(conf)) {
 			conf = {onBeforeLoad: conf};	
 		}
-		
-		var globals = $.extend({}, $.tools.overlay.conf); 
-		conf = $.extend(true, globals, conf);
+
+		conf = $.extend(true, {}, $.tools.overlay.conf, conf);
 		
 		this.each(function() {		
 			el = new Overlay($(this), conf);
