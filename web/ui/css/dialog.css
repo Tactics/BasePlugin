@@ -1,0 +1,87 @@
+.ttBase-dialog-modal
+{ 
+    background-color:#fff; 
+    display:none; 
+    width:350px; 
+    padding:15px; 
+    text-align:left; 
+    border:1px solid #666; 
+ 
+    opacity:1; 
+    -moz-border-radius:6px; 
+    -webkit-border-radius:6px; 
+    -moz-box-shadow:0 0 10px 2px #555;
+    -webkit-box-shadow: 0 0 10px #555;
+} 
+ 
+.ttBase-dialog-modal h2
+{ 
+    background:url(/ttBase/ui/images/info_32.gif) 0 50% no-repeat; 
+    margin:0px; 
+    padding:10px 0 10px 45px; 
+    border-bottom:1px solid #333; 
+    font-size:14px;
+    margin-bottom: 10px; 
+}
+
+.ttBase-dialog-modal.confirm h2
+{
+  background-image:url(/ttBase/ui/images/help_32.gif); 
+}
+
+.ttBase-dialog-modal.error h2
+{
+  background-image:url(/ttBase/ui/images/close_32.gif); 
+}
+
+.ttBase-dialog-modal.prompt h2
+{
+  background-image:url(/ttBase/ui/images/help_32.gif); 
+}
+
+.ttBase-dialog-modal p
+{
+  margin: 10px 0 10px 0;
+}
+
+.ttBase-dialog-modal .buttons
+{
+  text-align:center;
+}
+
+.ttBase-dialog-modal button
+{
+  margin: 5px;
+}
+
+/* the overlayed element */ 
+.ttBase-window
+{     
+  /* must be initially hidden */ 
+  display:none; 
+   
+  /* place overlay on top of other elements */ 
+  z-index:10000; 
+   
+  /* styling */ 
+  background-color:white;
+   
+  width:675px;     
+  min-height:200px; 
+  border:1px solid #666; 
+   
+  /* CSS3 styling for latest browsers */ 
+  -moz-box-shadow:0 0 10px 2px #555;
+  -webkit-box-shadow: 0 0 10px #555;
+} 
+ 
+/* close button positioned on upper right corner */ 
+.ttBase-window .close { 
+  background-image:url(/ttBase/ui/images/dialog-close.png); 
+  position:absolute; 
+  right:-15px; 
+  top:-15px; 
+  cursor:pointer; 
+  height:35px; 
+  width:35px; 
+}

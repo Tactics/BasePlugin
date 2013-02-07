@@ -1,0 +1,83 @@
+/* root element for tabs  */
+ul.tt-tabs { 
+	list-style:none; 
+	margin:0 !important; 
+	padding:0;	
+	border-bottom:1px solid #666;	
+	height:26px;
+}
+
+/* single tab */
+ul.tt-tabs li { 
+	float:left;	 
+	text-indent:0;
+	padding:0;
+  padding-left: 10px;
+	margin:0 !important;
+	list-style-image:none !important; 
+	background: transparent url(/ttBase/ui/images/tabs_sprite_1.png) no-repeat scroll 0 0;
+  position:relative;
+  top: 1px;
+  border-bottom: 1px solid #888;
+}
+
+/* link inside the tab. uses a background image */
+ul.tt-tabs a { 
+	float:left;
+	padding:5px 30px;	
+	background: white url(/ttBase/ui/images/tabs_sprite_1.png) no-repeat scroll 100% 0;
+	font-size:10px;
+	display:block;
+	height: 25px;  
+	line-height:25px;
+	text-align:center;	
+	text-decoration:none;
+	color:#333;
+	padding:0px;
+  padding-left: 10px;
+  padding-right: 20px;
+	margin:0px;
+}
+
+ul.tt-tabs a:active {
+	outline:none;		
+}
+
+/* when mouse enters the tab move the background image */
+ul.tt-tabs li:hover a {
+	background-position: 100% -31px;	
+	color:#fff;	
+}
+
+ul.tt-tabs li:hover{
+	background-position: 0 -31px;	
+}
+
+/* active tab uses a class name "current". it's highlight is also done by moving the background image. */
+ul.tt-tabs a.current, ul.tt-tabs li:hover a.current, ul.tt-tabs li.current a {
+	background-position: 100% -62px;		
+	cursor:default !important; 
+	color:#000 !important;
+}
+
+ul.tt-tabs li.current,  ul.tt-tabs li.current:hover {
+	background-position: 0 -62px;		
+  border-bottom: 1px solid white;
+}
+
+/* initially all panes are hidden */ 
+div.tt-tabpanes > div {
+	display:none;		
+}
+
+/* tab pane styling */
+div.tt-tabpanes > div
+{
+	display:none;		
+	padding:15px 10px;
+	border:1px solid #999;
+	border-top:0;
+	background-color:#fff;
+}
+
+
