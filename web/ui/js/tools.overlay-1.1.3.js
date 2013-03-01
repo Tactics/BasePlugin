@@ -205,9 +205,9 @@
 				// unbind the keyboard / clicking actions
 				$(document).off("click." + uid + " keydown." + uid);		  
 				
-				if (maskConf) {
-					$.mask.close();		
-				}
+//				if (maskConf) {
+//					$.mask.close();		
+//				}
 				 
 				return self;
 			}, 
