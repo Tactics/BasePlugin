@@ -100,15 +100,22 @@ class Misc
    * 
    * @param array $objects : objects to cache
    * @param string $indexGetter : get method om de index van de cached objects op te halen, default de id van het object
-   * 
+   * @param string $valueGetter : get method om een value van de objects op te halen ipv heel het object
    * @return array
    */
-  public static function buildIndexedCache($objects, $indexGetter = 'getId()')
+  public static function buildIndexedCache($objects, $indexGetter = 'getId()', $valueGetter = null)
   {
     if (empty($objects)) 
       return array();
     
-    return eval("return array_combine(array_map(create_function('\$object', 'return \$object->{$indexGetter};'), \$objects), \$objects);");
+    $keys = eval("return array_map(create_function('\$object', 'return \$object->{$indexGetter};'), \$objects);");
+    
+    $values = $valueGetter 
+      ? eval("return array_map(create_function('\$object', 'return \$object->{$valueGetter};'), \$objects);")
+      : $objects
+    ;    
+    
+    return array_combine($keys, $values);
   }
   
   /**
