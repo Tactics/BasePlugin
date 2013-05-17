@@ -137,10 +137,11 @@ class myFilteredPager extends sfPropelPager
    * @param string $name
    * @param string $namespace
    * @param mixed $default
+   * @param boolean $checkReset
    * 
    * @return mixed
    */
-  static public function updateAndGetRequestParameter($name, $namespace, $default = null)
+  static public function updateAndGetRequestParameter($name, $namespace, $default = null, $checkReset = false)
   { 
     
     if (! self::$request)
@@ -149,9 +150,9 @@ class myFilteredPager extends sfPropelPager
     }
 
     // If parameter supplied in request: update the parameter holder
-  	if (self::$request->hasParameter($name))
+  	if (self::$request->hasParameter($name) || ($checkReset && self::$request->hasParameter('reset')))
     {
-  		self::$attributeHolder->set($name, self::$request->getParameter($name), $namespace);
+  		self::$attributeHolder->set($name, self::$request->getParameter($name, $default), $namespace);
   	}
   	
   	// Default
@@ -237,8 +238,10 @@ class myFilteredPager extends sfPropelPager
       throw new sfException("Invalid filter type '$type', use class constants.");
     }
     
+    // checkReset: nodig om checkboxes te resetten naar hun default value
+    $checkReset     = isset($options['checkReset']) ? $options['checkReset'] : false;
     $default        = isset($options['default']) ? $options['default'] : null;
-    $value          = isset($options['value']) ? $options['value'] : self::updateAndGetRequestParameter($filterField, $this->namespace, $default);
+    $value          = isset($options['value']) ? $options['value'] : self::updateAndGetRequestParameter($filterField, $this->namespace, $default, $checkReset);
     $comparison     = isset($options['comparison']) ? $options['comparison'] : (is_array($value) ? Criteria::IN : Criteria::EQUAL);
     
     $this->filter[$filterField] = array(
