@@ -131,4 +131,37 @@ class Misc
     $response->addCacheControlHttpHeader('no-cache');
     $response->setHttpHeader('Content-Disposition', 'attachment; filename=' . $filename);
   }
+  
+  /**
+   * geeft geslacht terug op basis van rijksregisternummer
+   * 
+   * @param string $rrn
+   * @return char
+   */
+  public static function getGeslacht($rrn)
+  {    
+    return intval(substr(str_replace(' ', '', $rrn), 6, 3)) % 2 == 0 ? 'V' : 'M';
+  }
+  
+  /**
+   * geeft de geboortedatum terug op basis van rijksregisternummer
+   * 
+   * @param string $rrn rijksregisternummer
+   * @param string $format default propeldate
+   * @return string geboortedatum
+   */
+  public static function getGeboortedatum($rrn, $format = 'yyyy-MM-dd')
+  {
+    self::use_helper('Date');
+    if (intval(substr($rrn, 0, 2)) < 20)
+    {
+      $propelDate = '20' . substr($rrn, 0, 2) . '-' . substr($rrn, 2, 2) . '-' . substr($rrn, 4, 2);
+    }
+    else
+    {
+      $propelDate = '19' . substr($rrn, 0, 2) . '-' . substr($rrn, 2, 2) . '-' . substr($rrn, 4, 2);
+    }
+    
+    return format_date($propelDate, $format);
+  }
 }
