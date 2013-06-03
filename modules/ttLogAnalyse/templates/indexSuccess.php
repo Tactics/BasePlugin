@@ -1,5 +1,9 @@
 <?php
 include_partial('breadcrumb');
+
+ function sortByTime($a, $b) {
+   return strcmp($b['time'], $a['time']);
+ }
 ?>
 <style>
   tr.no_issue
@@ -31,6 +35,10 @@ include_partial('breadcrumb');
     <h2 class="pageblock">Template</h2>
     <div class="pageblock">
   <?php
+
+
+
+ 
     $table = new myTable(
                         array(
                           array("text" => 'Action'),
@@ -41,58 +49,66 @@ include_partial('breadcrumb');
                         )
                       );
     foreach($detailInfo['template'] as $action => $actionEntries) {
+      usort($actionEntries, 'sortByTime');
       foreach($actionEntries as $detailLine)
       {
         $options = array();
         if(! ($detailLine['database_timer'] > 500  ||
-                $detailLine['timer'] > 2000
+                $detailLine['time'] > 2000
                 ))
         {
-          $options['class'] = 'no_issue';
+          $options['rowClass'] = 'no_issue';
         }
         else
         {
-          $options['class'] = 'issue';
+          $options['rowClass'] = 'issue';
         }
         $table->addRow(array(
                         $action,
                         $detailLine['database_timer'] . ' ms',
                         $detailLine['view_timer'] . ' ms',
-                        $detailLine['timer'] . ' ms',
+                        $detailLine['time'] . ' ms',
                         $detailLine['detail']
                           ), $options
                       );
       }
     }
+    
     echo $table;
-    echo '<br/>';
+    ?>
+    </div>
+    <h2 class="pageblock">Database</h2>
+    <div class="pageblock">
+    <?php        
     $table = new myTable(
                         array(
                           array("text" => 'Time', 'width' => '75px'),
                           array("text" => 'Query'),
                         )
                       );
+    usort($detailInfo['database'], 'sortByTime');
     foreach($detailInfo['database'] as $line) 
     {
       $options = array();
-      if(! ($line['time'] > 500))
+      
+      if(! (round($line['time']) > 200))
       {
-        $options['class'] = 'no_issue';
+        $options['rowClass'] = 'no_issue';
       }
       else
       {
-        $options['class'] = 'issue';
+        $options['rowClass'] = 'issue';
       }
       $table->addRow(array(
                       $line['time'] . ' ms',
-                      $line['query'] . ' ms',
-                        ), $options
+                      $line['query'],
+                          ), $options
                     );
     }
     echo $table;
   ?>
+    </div>
    </div>
-  </div>
   <?php endforeach;?>
 </div>
   
@@ -105,14 +121,14 @@ include_partial('breadcrumb');
       if($(this).is(':checked'))
       {
         $('.no_issue').show();
-        $('.issue').css('background-color', 'red');
-        $('.issue').css('color', 'white');
+        $('.issue td').css('background-color', 'red');
+        $('.issue td').css('color', 'white');
       }
       else
       {
         $('.no_issue').hide();
-        $('.issue').css('background-color', 'white');
-        $('.issue').css('color', 'black');
+        $('.issue td').css('background-color', 'white');
+        $('.issue td').css('color', 'black');
         
       }
     })

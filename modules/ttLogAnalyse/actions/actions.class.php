@@ -65,7 +65,7 @@ class ttLogAnalyseActions extends sfActions
                 $parsedLineInfo = self::parseLine($buffer);
               }
               
-              $detailPerFile[$entry]['template'][$key][] = array('timer' => $totalTimer, 
+              $detailPerFile[$entry]['template'][$key][] = array('time' => $totalTimer, 
                                                    'database_timer' => $dbaseTimer,
                                                    'view_timer' => $templateTimer,
                                                    'detail' => $fullDetail,
@@ -123,11 +123,12 @@ class ttLogAnalyseActions extends sfActions
       $parsedLineInfo['line_type'] = 'database';
       $detail = substr($line, strpos($line, 'executeQuery():')+16);
       
-      $parsedLineInfo['time'] = substr($detail, 1, strpos($detail, 'ms')-2);
+      $parsedLineInfo['time'] = (float)substr($detail, 1, strpos($detail, 'ms')-2);
       $parsedLineInfo['query'] = substr($detail, strpos($detail,' ms]')+5);
       
     }
             
+    
     return $parsedLineInfo;
   }
   
