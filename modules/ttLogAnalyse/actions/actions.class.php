@@ -40,11 +40,13 @@ class ttLogAnalyseActions extends sfActions
               $action = '';
               $totalTimer = 0;
               $dbaseTimer = $templateTimer = 0;
+              $queryCount = 0;
               while ($parsedLineInfo['line_type'] == 'timer') {
                 if (isset($parsedLineInfo['action'])) {
                   $key = $parsedLineInfo['action'];
                 } elseif ($parsedLineInfo['time_type'] == 'Database') {
                   $dbaseTimer = $parsedLineInfo['time'];
+                  $queryCount = $parsedLineInfo['query_count'];
                 } elseif ($parsedLineInfo['time_type'] == 'View') {
                   $templateTimer = $parsedLineInfo['time'];
                 }
@@ -55,8 +57,8 @@ class ttLogAnalyseActions extends sfActions
                 $parsedLineInfo = self::parseLine($buffer);
               }
 
-              if ($totalTimer >= 2000 || $dbaseTimer >= 500) {
-                if (isset($detailPerFile[$entry]['template'][$key]) && count($detailPerFile[$entry]['template'][$key]) == 5) {
+              if ($totalTimer >= 2000 || $dbaseTimer >= 500 || $queryCount > 120) {
+                if ((isset($detailPerFile[$entry]['template'][$key]) && count($detailPerFile[$entry]['template'][$key]) == 5) || $key == 'ttLogAnalyse/index') {
                   continue;
                 }
                 $detailPerFile[$entry]['template'][$key][] = array('time' => $totalTimer,
@@ -104,6 +106,11 @@ class ttLogAnalyseActions extends sfActions
         $parsedLineInfo['action'] = $key;
       } else {
         $parsedLineInfo['time_type'] = $type;
+      }
+
+      if ($type == 'Database')
+      {
+        $parsedLineInfo['query_count'] = substr($detail, strpos($detail, '(') + 1, strpos($detail, ')') -25);
       }
     } // Case 2 - Database
     else if (strpos($line, 'executeQuery():') !== false) {
