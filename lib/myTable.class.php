@@ -14,7 +14,7 @@ class myTable
 	 * Information about each column and its header
 	 */
 	private $columnInfo;
-	
+
 	/**
 	 * Target div for table update function
 	 */
@@ -24,7 +24,7 @@ class myTable
 	 * Uri of remote table update function
 	 */
 	private $sortUri = "";
-	
+
 	/**
 	 * Field by which the table is ordered, if any
 	 */
@@ -37,9 +37,9 @@ class myTable
 
 	/**
 	 * Whether to show the table header
-	 */ 
+	 */
 	private $showHeader = true;
-	
+
 	private $rowCount = 0;
 	private $colCount = 0;
 
@@ -56,7 +56,7 @@ class myTable
 	 *  - width
 	 * 	- align
 	 *  - headeralign
-	 * 
+	 *
 	 * $options
 	 *  - noheader
 	 *  - sorturi
@@ -66,16 +66,16 @@ class myTable
 	 */
 	function __construct($columnInfo, $options = array()) {
 	  // input checks
-		if (!is_array($columnInfo)) 
+		if (!is_array($columnInfo))
 			throw new sfViewException("parameter columnInfo of type array expected");
-		if (!is_array($options)) 
+		if (!is_array($options))
 			throw new sfViewException("parameter options of type array expected");
-		
+
 		// column data
-		$this->columnInfo = $columnInfo;	  
+		$this->columnInfo = $columnInfo;
 		$this->colCount = count($columnInfo);
 
-		// options		
+		// options
 		$this->sortUri= _get_option($options, "sorturi", "");
 		$this->sortTarget = _get_option($options, "sorttarget", "");
 		$this->sortField = _get_option($options, "sortfield", "");
@@ -87,7 +87,7 @@ class myTable
 
 
 	}
-	
+
 	/**
 	 *
 	 */
@@ -95,7 +95,7 @@ class myTable
   {
 	  return $this->getHtml();
 	}
-	
+
 	/**
 	 * Return the HTML code for the current table
 	 */
@@ -112,10 +112,10 @@ class myTable
 	  $html .=  "\n<!-- myTable: SCRIPTS -->\n";
 		$html .= $this->_getScripts();
 		$html .= "\n<!-- End myTable generated code -->\n";
-			
+
 		return $html;
 	}
-	
+
 	/**
 	 * Return only row html
 	 */
@@ -125,15 +125,15 @@ class myTable
 		  $html = "    <td colspan='$this->colCount'>Geen resultaten</td>\n";
 		}
 		else $html = $this->rowDataHtml;
-		
+
 		return $html;
 	}
-	
-	
+
+
 	private function _getHeaderCell($rownumber, $cell)
 	{
 	  $html = "";
-	  
+
 	  // Opening td tag with options
 	  $html .= "    <td ";
 
@@ -143,7 +143,7 @@ class myTable
 			$html .= " align=\"" . $cell["headeralign"] . "\"";
 	  else if ( isset($cell["align"]) )
 			$html .= " align=\"" . $cell["align"] . "\"";
-			
+
 	  if ( isset($cell["width"]) )
 			$html .= " width=" . $cell["width"] . " style='" . $cell["width"] . "px;'";
 
@@ -153,7 +153,7 @@ class myTable
 		$html .= " onmouseover='jQuery(this).addClass(\"mouseover\")'";
 		$html .= " onmouseout='jQuery(this).removeClass(\"mouseover\")'";
 
-    
+
 		if (isset($cell["sortable"]) && $cell["sortable"] && isset($cell["name"]) && $cell["name"] != "")
     {
 		  if ($this->sortTarget)
@@ -184,13 +184,13 @@ class myTable
 		}
 
 		// Close td tag
-		
+
 		$html .= "</div>\n";
-		$html .= "</td>\n";	  
-		
+		$html .= "</td>\n";
+
 		return $html;
 	}
-	
+
 	/**
 	 * Generate header HTML
 	 */
@@ -201,33 +201,33 @@ class myTable
     // Insert user defined attributes for the td tag
     foreach($this->tableAttributes as $attribute => $value)
     {
-      $html .= " " . $attribute . '="' . addslashes($value) . '"';        
-    }	
-        
+      $html .= " " . $attribute . '="' . addslashes($value) . '"';
+    }
+
     $html .= ">\n";
-		
+
 		// Create <col> tags
 		foreach($this->columnInfo as $cell) {
 		  $html .= "<col " . ((isset($cell["name"]) && $this->sortField == $cell["name"]) ? "class='gesorteerd'" : "") . "/>";
 		}
-		
+
 		if ($this->showHeader) {
 			// Column header
 			$html .= "  <thead>\n";
-	
+
 			$html .= "  <tr>\n";
-		
+
 			for($r = 0; $r < count($this->columnInfo); $r++) {
 			  $html .= $this->_getHeaderCell($r, $this->columnInfo[$r]);
 			}
-	
-			// End of header, start of tbody	
+
+			// End of header, start of tbody
 			$html .= "  </tr>\n";
 			$html .= "  </thead>\n";
 		}
-		
+
 		$html .= "  <tbody>\n";
-		return $html;	  
+		return $html;
 	}
 
 	/**
@@ -240,11 +240,11 @@ class myTable
 	 *   - style:  add style info to the row
 	 */
 	function addRow($rowData, $options = array()) {
-	  
+
 	  $this->rowCount++;
-	  
+
 	  $rowalign = _get_option($options, "align", false);
-	  
+
 	  // Start the row, indicate even/oneven
 	  $html = "  <tr class=\"";
 	  if ( _get_option($options, "static", false)) {
@@ -255,11 +255,11 @@ class myTable
 		}
 
 		$html .= " " . _get_option($options, "rowClass", "");
-				
+
 		$html .= "\"";
-		
+
 		$style = _get_option($options, "style", "");
-		
+
 	  if ( $style != "") {
 	    $html .= " style=\"$style\"";
 	  }
@@ -267,17 +267,17 @@ class myTable
     // Insert user defined attributes for the tr tag
     foreach(_get_option($options, "trAttributes", array()) as $attribute => $value)
     {
-      $html .= " " . $attribute . '="' . addslashes($value) . '"';        
-    }												
-			
+      $html .= " " . $attribute . '="' . addslashes($value) . '"';
+    }
+
 		$html .= ">\n";
-	  
+
 	  // Draw each cell in the row
 		for($i = 0; $i < $this->colCount; $i++) {
-		  
+
 		  // Opening td tag with options
   		$html .= "    <td";
-			
+
 			$html .= " id='cell_" . $this->rowCount . "_$i'";
 
   		if ($rowalign) {
@@ -296,24 +296,30 @@ class myTable
 			{
         foreach($rowData[$i]['tdAttributes'] as $attribute => $value)
         {
-          $html .= " " . $attribute . '="' . addslashes($value) . '"';        
-        }												
+          $html .= " " . $attribute . '="' . addslashes($value) . '"';
+        }
 			}
 
 			$html .= ">";
-			
-			
+
+
 			$cellContent = '';
-			
+
 			$html .="<div style='overflow:hidden' ";
-			
+
 			// Cell content or empty
 			if ( ! is_array($rowData[$i]) ){
 			  $cellContent = $rowData[$i];
-        if (! isset($rowData[$i]['divAttributes']['title']))
+
+        if (is_object($cellContent) && method_exists($cellContent, '__toString'))
+        {
+          $html .= " title=\"" . htmlentities(html_entity_decode(strip_tags((string) $cellContent)));
+        }
+        elseif (! is_object($cellContent))
         {
           $html .= " title=\"" . htmlentities(html_entity_decode(strip_tags($cellContent)));
         }
+
         $html .= '"';
 			}
 			else if ( is_array($rowData[$i]) && isset($rowData[$i]["content"]) ) {
@@ -327,25 +333,25 @@ class myTable
 			else {
 			  $cellContent = "&nbsp;";
 			}
-      
+
       // Insert user defined attributes for the td tag
 			if (is_array($rowData[$i]) && isset($rowData[$i]['divAttributes']))
 			{
         foreach($rowData[$i]['divAttributes'] as $attribute => $value)
         {
-          $html .= " " . $attribute . '="' . addslashes($value) . '"';        
-        }											
+          $html .= " " . $attribute . '="' . addslashes($value) . '"';
+        }
 			}
-			
+
 			$html .= ">";
-			
+
 			$html .= $cellContent;
-			
+
 			// End of cell
 			$html .= "</div>";
 			$html .= "    </td>\n";
 		}
-	
+
 		// End of row
 		$html .= "  </tr>\n";
 		$this->rowDataHtml .= $html;
@@ -358,9 +364,9 @@ class myTable
 	  // End of table body and table
 		$html = "  </tbody>\n";
 		$html .= "</table>\n";
-		return $html;	  
+		return $html;
 	}
-  
+
   private function _getScripts() {
     $html = "";
 	  return $html;
