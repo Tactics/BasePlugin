@@ -175,4 +175,12 @@ class Misc
 
     return format_date($propelDate, $format);
   }
+
+  public static function pre_print_r($var)
+  {
+    echo '<pre>';
+    print_r($var);
+    echo '</pre>';
+    die();
+  }
 }
