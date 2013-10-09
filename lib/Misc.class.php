@@ -176,11 +176,40 @@ class Misc
     return format_date($propelDate, $format);
   }
 
+  /**
+   * Geformatteerd printen van var + die()
+   * 
+   * @param mixed $var
+   */
   public static function pre_print_r($var)
   {
     echo '<pre>';
     print_r($var);
     echo '</pre>';
     die();
+  }
+
+  /**
+   * Geeft het object terug op basis van class en id
+   * op voorwaarde dat er een Peer class met retrieveByPK static function bestaat
+   * 
+   * @param string $object_class
+   * @param integer $object_id
+   *
+   * @return mixed The object
+   */
+  public static function getObject($object_class, $object_id)
+  {
+    if (!($object_class && $object_id))
+    {
+      return null;
+    }
+
+    if (!method_exists($object_class . 'Peer', 'retrieveByPK'))
+    {
+      return null;
+    }
+
+    return call_user_func($object_class . 'Peer::retrieveByPK', $object_id);
   }
 }
