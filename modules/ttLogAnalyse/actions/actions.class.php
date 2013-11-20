@@ -28,7 +28,7 @@ class ttLogAnalyseActions extends sfActions
           $source_file = fopen(SF_ROOT_DIR . DIRECTORY_SEPARATOR . 'log' . DIRECTORY_SEPARATOR . $entry, 'r');
           while (!feof($source_file)) {
             // Read linext line
-            $buffer = fgets($source_file, 1024);
+            $buffer = fgets($source_file, 6000);
 
             // First {sfTimerManager} found
             $key = 'unknown';
@@ -53,7 +53,7 @@ class ttLogAnalyseActions extends sfActions
                 $fullDetail .= $parsedLineInfo['raw_detail'] . '<br/>';
                 $totalTimer = bcadd($totalTimer, $parsedLineInfo['time']);
                 // Read next line
-                $buffer = fgets($source_file, 1024);
+                $buffer = fgets($source_file, 6000);
                 $parsedLineInfo = self::parseLine($buffer);
               }
 
