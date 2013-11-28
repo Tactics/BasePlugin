@@ -316,8 +316,58 @@ class myDateTools
     
     return $txt . ' geleden';
   }
+  
+  private static $timestampRangeCache = array();
+  
   	
-	
+	/**
+   * 
+   * @param timerstamp $beginTs
+   * @param timestamp $eindTs
+   * 
+   * @return array
+   */
+  public static function getTimestampsFromRange($beginTs, $eindTs, $getter = 'getPropelDate')
+  {
+    $key = $beginTs . '_' . $eindTs . '_' . $getter;
+    if(! isset(self::$timestampRangeCache[$key]))
+    {
+       $timestamps = array();
+       $begindatum = new myDate($beginTs);
+       $einddatum = new myDate($eindTs);
+       for ($d = $begindatum->copy(); $d->isBeforeOrEquals($einddatum); $d->nextDay())
+       {
+         $timestamps[$d->getTimestamp()] = $d->$getter();
+       }
+       self::$timestampRangeCache[$key] = $timestamps;
+    }
+    
+    return self::$timestampRangeCache[$key];
+  }
+  
+  private static $myDateRangeCache = array();
+  
+  /**
+   * Geeft reeks terug van mydate 
+   * 
+   * @param myDate $beginDate
+   * @param myDate $eindDate
+   * @return array
+   */
+  public static function getRange($beginDate, $eindDate)
+  {
+    $key = $beginDate->getTimestamp() . '_' . $eindDate->getTimestamp();
+    if(! isset(self::$myDateRangeCache[$key]))
+    {
+       for ($d = $beginDate->copy(); $d->isBeforeOrEquals($eindDate); $d->nextDay())
+       {
+         $dates[$d->getTimestamp()] = $d->copy();
+       }
+       self::$myDateRangeCache[$key] = $dates;
+    }
+    
+    return self::$myDateRangeCache[$key];
+  }
 }
 
 ?>
