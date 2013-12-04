@@ -180,7 +180,10 @@ class myDate
 	public function setMonth($m)
 	{
 		$this->month = $m;
-	  return $this;
+        if ($this->day > $this->getDaysInMonth())
+        {
+          $this->day = $this->getDaysInMonth();
+        }	  return $this;
 	}
 
 	/**
@@ -332,6 +335,10 @@ class myDate
 	  return $this->year;
 	}
 
+  public function getQuarter()
+  {
+    return ceil($this->month / 3);
+  }
 	public function getHours()
 	{
 	  return $this->hours;
@@ -646,7 +653,10 @@ class myDate
 		else {
 		  $this->month -= $rest;
 		}
-	  
+        if ($this->day > $this->getDaysInMonth())
+        {
+          $this->day = $this->getDaysInMonth();
+        }	  
 	  return $this;
 	}
 
@@ -664,7 +674,10 @@ class myDate
 		else {
 		  $this->month++;
 		}
-	  
+        if ($this->day > $this->getDaysInMonth())
+        {
+          $this->day = $this->getDaysInMonth();
+        }	  
 	  return $this;
 	}
 
@@ -686,7 +699,10 @@ class myDate
 		else {
 		  $this->month += $rest;
 		}
-	  
+        if ($this->day > $this->getDaysInMonth())
+        {
+          $this->day = $this->getDaysInMonth();
+        }	  
 	  return $this;
 	}
 	
