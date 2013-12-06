@@ -1,5 +1,5 @@
 {
-    "name": "tactics/base-plugin",
+    "name": "tactics/tt-base-plugin",
     "type": "symfony1-plugin",
     "description": "Base pluging!",
     "license": "MIT",
