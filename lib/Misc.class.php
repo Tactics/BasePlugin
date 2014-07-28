@@ -131,6 +131,20 @@ class Misc
     $response->addCacheControlHttpHeader('no-cache');
     $response->setHttpHeader('Content-Disposition', 'attachment; filename=' . $filename);
   }
+  
+  /**
+   * Zet browsersheaders zo dat het document als PDF bestand herkend wordt
+   */
+  public static function setPdfHeaders($filename)
+  {
+    $response = sfContext::getInstance()->getResponse();
+
+    $response->setContentType('application/pdf; charset=utf-8');
+    $response->setHttpHeader('Content-Language', 'nl');
+    $response->addVaryHttpHeader('Accept-Language');
+    $response->addCacheControlHttpHeader('no-cache');
+    $response->setHttpHeader('Content-Disposition', 'attachment; filename=' . $filename);
+  }
 
   public static function setCsvHeaders($filename)
   {
