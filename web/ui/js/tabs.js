@@ -28,11 +28,11 @@
         .addClass('tt-tabpanes')
         .children('ul:first')
         .addClass('tt-tabs')
-        .tabs($this.children('div'), options); //.history();)
+        .tools_tabs($this.children('div'), options); //.history();)
     }
           
     // Returns api (if no options)
-    return $this.tabs(options);
+    return $this.tools_tabs(options);
   }
   
 })(jQuery);
