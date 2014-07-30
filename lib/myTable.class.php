@@ -45,6 +45,7 @@ class myTable
 
 	private $rowDataHtml = "";
 
+  private $smartadmin = false;
 
 	/**
 	 * Create a table object with given columns and options
@@ -84,7 +85,7 @@ class myTable
 		$this->style = _get_option($options, "style", "");
 		$this->class = _get_option($options, "class", "");
 		$this->tableAttributes = _get_option($options, "tableAttributes", array());
-
+    $this->smartadmin = _get_option($options, "smartadmin", false);
 
 	}
 
@@ -135,7 +136,7 @@ class myTable
 	  $html = "";
 
 	  // Opening td tag with options
-	  $html .= "    <td ";
+	  $html .= $this->smartadmin ? "    <th " : "    <td ";
 
 		$html .= " id='headercell$rownumber'";
 
@@ -186,7 +187,7 @@ class myTable
 		// Close td tag
 
 		$html .= "</div>\n";
-		$html .= "</td>\n";
+		$html .= $this->smartadmin ? "</th>\n" : "</td>\n";
 
 		return $html;
 	}
@@ -196,7 +197,7 @@ class myTable
 	 */
 	private function _getHeaderHtml() {
 	  // Start table
-		$html = "<table class=\"grid {$this->class}\" style=\"{$this->style}\"";
+		$html = "<table class=\"grid {$this->class}".($this->smartadmin ? ' table table-striped table-bordered table-hover dataTable no-footer' : '')." \" style=\"{$this->style}\"";
 
     // Insert user defined attributes for the td tag
     foreach($this->tableAttributes as $attribute => $value)
