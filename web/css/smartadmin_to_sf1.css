@@ -1,0 +1,1362 @@
+#header 
+{
+    height: 70px;
+    margin-bottom: 0px;
+}
+
+#header h1 {padding-left: 70px; padding-top: 0px; font-size: 16px; color: #072655; 	font-family: Verdana, Arial, sans-serif; font-weight: bold;}
+#header h2 {padding-left: 70px; padding-top: 0px; font-size: 12px; color: #FFF; 	font-family: Verdana, Arial, sans-serif; font-weight: normal;}
+
+body {
+	background: #fff url('/images/layout/header.jpg');
+	background-repeat: repeat-x;
+  font-size: .9em;
+}
+
+div#wrapper{float:right;width:100%;margin-left:-200px}
+
+div#content{
+  min-height: 400px;
+}
+
+div#navigation{float:left;width:105px;}
+
+div#footer
+{
+  clear:both;
+  width:100%;
+  padding-top: 20px;
+}
+
+div#footer p
+{
+  text-align:left;
+  border-top: 1px solid #CCC;
+}
+
+div#footer, div#footer a
+{
+  color: #AAA;
+}
+
+div#navigation
+{
+  opacity: .2;
+}
+
+div#navigation:hover
+{
+  opacity: 1;
+}
+
+/*********** DEFAULT STYLES ************/
+
+h1,h2,h3,h4,h5,h6,pre,form,body,html,p,fieldset,input
+{ margin: 0; padding: 0; }
+
+ul, ol {
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+body, td, p
+{
+  margin: 0px;
+  padding: 0px;
+  font-family: Verdana, arial, helvetica, sans-serif;
+  font-size: 10px;
+}
+
+body
+{
+  background-color: #F6F9FD;
+  padding: 10px;
+}
+
+thead { display: table-header-group; }
+tfoot { display: table-footer-group; }
+
+p {
+	margin:0px 0px 16px 0px;
+	padding:0px;
+}
+	
+a,
+a:link,
+a:visited
+{
+	color:#0000EE;
+	text-decoration:none;
+}
+
+a:hover {text-decoration: underline;}
+a img,:link img,:visited img { border: none; }
+
+	
+h1 {
+	margin:0px 0px 15px 0px;
+	padding:0px;
+	font-size:20px;
+	font-weight:900;
+	color:#AEAEAE;
+}
+
+hr
+{
+  border: none;
+  border-top: 1px solid #7A8FAD;
+}
+
+th
+{
+  text-align: left;
+}
+
+option[disabled] {
+  color: #AAAAAA;
+}
+
+table.twoColumnLayout {
+	width: 100%;
+}
+
+table.twoColumnLayout td {
+	vertical-align: top;
+}
+
+table.twoColumnLayout td.fixedColumn {
+	padding-right: 10px;
+	width: 230px;
+}
+
+/*********** Dashboard ******************/
+
+img.icon
+{
+  border: 1px solid #999999;
+  padding: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-right: 8px;
+  background-color: white;
+  background-image: url(/images/icons/_icon_bg.png);
+  float:left;
+}
+
+/*********** ALLERLEI ******************/
+
+.warning {
+  color: red;
+}
+
+.float {
+  float: left;
+}
+
+div.spacer {
+  clear: both;
+}
+
+.alignright {
+  text-align: right;
+}
+
+
+/* Show calendar on top of everything */
+div.calendar {
+  z-index: 1000;
+}
+
+img.icon_inline {
+  vertical-align: middle;
+  margin: 0px;
+  margin-left: 2px;
+  margin-right: 2px;
+  position: relative;
+  top: -2px;
+}
+
+
+/*********** PAGE BLOCKS ************/
+
+.widget-body,
+.checkbox.placeholders,
+#placeholders {
+    position: relative;
+	border: 1px solid #7A8FAD;
+	background-color: white;
+	margin-bottom: 8px;
+	padding: 6px;
+	padding-top: 20px;
+}
+
+.widgetbody.gearchiveerd {
+  background-color: #F9F9F9;
+	border: 1px solid #BBBBBB;
+}
+
+
+div.flashpageblock {
+  background-color: #DFFCA6;
+	border: 1px solid #739845;
+	margin-bottom: 30px;
+	padding: 10px;
+	position: relative;
+	top: -10px;
+}
+
+div.pageactions {
+  position: relative;
+  float: right;
+  top: -13px;
+}
+
+
+h2 {
+  font-size:14px;
+  margin-bottom: 7px;
+}
+
+h2 img{
+  position: relative;
+  top: 7px;
+}
+
+.placeholders
+{
+    width: 275px;
+    display: block;
+    margin-left: 20px;
+}
+header h2,
+.placeholders {
+  font-weight: normal;
+	font-size: 11px;
+	padding-top: 5px !important;
+	padding-bottom: 2px;
+	margin-bottom:0 !important;
+	color: #072655;
+	padding-left: 7px;
+	border: 1px solid #7A8FAD;
+	border-bottom: 0 !important;
+	background-color:#D6E1F0;
+  z-index: 15; /* Moet hoger zijn dan de z-index van de overlay om divs te disablen */
+}
+
+
+header h2.gearchiveerd {
+	color: #444444;
+	border: 1px solid #BBBBBB;
+	border-bottom: 0px;
+	background-color:#FFFFAA;
+}
+
+li.gearchiveerd {
+	color: #444444;
+	background-color:#FFFFAA;
+}
+
+/* action icons in pageblock header */
+h2.pageblock .actionicon
+{
+  float: right;
+  margin-top: -4px;
+  padding-right: 3px;
+}
+
+fieldset legend .actionicon
+{
+  margin-top: -17px;
+  padding-right: 3px;
+}
+
+
+
+/* icons in a pageblock header */
+header h2 img {
+  position: relative;
+  top: 2px;
+}
+
+div.pageblock > hr,
+div.pageblock > form > hr
+{
+  margin-left: -6px;
+  margin-right: -6px;
+}
+
+
+div.pageactions {
+	width:auto;
+	min-width:200px;
+	text-align:right;
+}
+
+
+.tt-tabpanes
+{
+    display: inline-block;
+    width: 75%;
+    margin-bottom: 10px;
+}
+
+.bijlage_toevoegen
+{
+    margin-left: 215px;
+}
+
+[id^="new_brief_bijlage"]
+{
+    margin-left: 214px;
+}
+#new_brief_bijlage0
+{
+    margin-left: 0 !important;
+}
+/******* OBJECT INFO ********/
+
+div.objectinfo {
+	
+/*  top: -85px;
+  right: 10px;*/
+  width: auto;
+  background-color: white;
+  /*float:right;*/
+  border: 1px solid gray;
+  /*opacity: 0.15;*/
+}
+
+div.objectinfo td,
+div.objectinfo th {
+  background-color: white;
+  font-size: 9px;
+}
+
+div.objectinfo th {
+  padding-right:10px;
+}
+
+div.objectinfosmall {
+  
+  text-align: right;
+  font-size: 9px;
+  color: #444444;
+}
+
+/*** TABLES ***/
+.smart-form
+{
+    width: 100%;
+}
+
+.smart-form fieldset
+{
+    margin: 5px 0 15px 0;
+}
+
+.col .label
+{
+    display: inline-block;
+  font-weight: normal;
+  text-align: right; 
+  padding-right: 10px;
+  vertical-align: top;
+  top: -1px;
+  padding-top: 2px;
+  width: 200px;
+}
+
+.col .label .error
+{
+  color: red;
+}
+
+.col-6
+{
+    width: 50%;
+    float: left;
+}
+
+table.formtable tr.required th
+{
+  font-weight: bold;
+}
+
+table.formtable .readonly
+{
+  font-weight: bold;
+  display:inline
+}
+
+.col .label, .col .input, .col .select {
+    height: 16px;
+}
+
+.label.placeholders {
+  text-align: left;
+  width:  275px;
+  padding-right: 5px;
+}
+
+input[type="text"]
+{
+    width: 180px !important;
+}
+
+.fa.fa-minus, .fa.fa-refresh
+{
+    display: none !important;
+}
+
+i
+{
+  height: 16px;
+}
+
+.bladeren
+{
+  display: none;
+}
+/********* FORMS *************/
+
+
+form div.formitemhidable {
+  display:inline;
+}
+
+input, option, optgroup, select, textarea {
+  font-family: Verdana, arial, helvetica, sans-serif;
+  font-size: 10px;
+  font-weight: normal;
+}
+
+button, input[type=submit], input[type=button] {
+	border: 1px solid #000000;
+	background-color: #F0F0F0;
+}
+
+input[type=image] {
+  border: none;
+}
+
+div.buttongroup {
+  text-align: right;
+}
+
+input, textarea, select {
+	border: 1px solid #888888;
+}
+
+input:focus, textarea:focus, select:focus
+{
+	border: 1px solid black;
+	background-color: #FEFBF7;
+}
+
+input {
+ 	padding-left: 3px;
+	padding-right: 3px;
+}
+
+a.button, a.button:hover {
+	border: 1px solid #000000;    
+  font-family: Verdana, arial, helvetica, sans-serif;
+  text-decoration: none;
+	color: black;
+	background-color: #F0F0F0;
+	padding-left: 6px;
+	padding-right: 6px;
+	padding-top: 1px;
+	padding-bottom: 1px;
+}
+
+optgroup {
+  padding-top: 5px;
+	font-weight: bold;
+	color: #7F1F1F;   
+}
+
+option {
+	color: black;
+}
+
+select.monospace,
+select.monospace option {
+	font-family: Courier New, Courier, monospace;
+	font-size: 11px;
+}
+
+fieldset.problemen {
+  border: 1px solid #F50707;
+  background: #FEEFEF;
+}
+
+fieldset.problemen li {
+  font-weight: bold;
+}
+
+fieldset.problemen ul {
+  padding-bottom: 10px;
+  padding-left: 30px;
+}
+
+
+fieldset.infomessage {
+  border: 1px solid #F50707;
+  background: #FEEFEF;
+}
+
+
+tr.error th
+{
+  color: red;
+}
+
+tr.error td input
+{
+  background-color: #FEEFEF;
+  border: 1px solid red;
+}
+
+
+tr.problemen {
+  background: #FEEFEF;
+}
+
+tr.problemen th,
+tr.problemen td {
+  color: #F50707;
+}
+
+tr.problemen input {
+  border: 1px solid #F50707;
+}
+
+
+legend {
+	font-size: 11px;
+  border: 0px solid #6FA9EC;
+  padding: 2px;
+  padding-left: 6px;
+  padding-right: 6px;
+  margin-left:10px;
+/*	background: #ffffff;*/
+}
+
+fieldset.problemen legend {
+  border: 1px solid #F50707;
+	background: #FDBBBB;
+}
+
+div.opmerking, div.opmerking-alert, div.opmerking-prive {
+	padding-top:3px;  
+	padding-bottom:3px;  
+	padding-left:6px;
+	padding-right:6px;
+	margin-top:6px;
+	border: 1px solid #8FC9EC;
+}
+
+div.opmerking-alert {
+	border: 1px solid #FF0000;
+	background-color: #FFDDDD;
+}
+
+input.opmerking-alert {
+	border: 1px solid #FF0000;
+	background-color: #FFDDDD;
+}
+
+
+div.opmerking-prive {
+  border: 1px solid #555555;
+  background-color: #EEEEEE;
+  color: #444444;
+}
+
+#opmerkinglijst #toevoegen {
+  width: 80%;
+	position:absolute;
+	background-color:white;
+	border: 1px solid gray;
+	padding: 2px 2px 2px 2px;  
+}
+
+#opmerkinglijst #toevoegen td {
+	background-color:white;
+}
+
+/***** MENU *****/
+
+div.menublock {
+	margin: 0px;
+	padding: 0px;
+  margin-bottom: 30px;
+}
+
+div.menublock h1 {
+  font-size: 11px;
+  color: #072655;
+  border-bottom: 1px solid #072655;
+  border-top: 1px solid #072655;
+	padding-bottom: 5px;
+	padding-top: 5px;
+  background-color: #C8DCFA;
+  margin-bottom: 3px;
+  text-align: center;
+  display: block;
+  width: 100%;
+}
+
+div.menublock ul {
+  list-style: none;
+  padding: 0px;
+}
+
+div.menublock ul li {
+  border-bottom: 1px solid #DCDCDC;
+  padding-left: 0px;
+  padding-bottom: 2px;
+  padding-top: 2px;
+}
+
+div.menublock ul li a{
+  color: black;
+}
+
+div.menublock ul li:hover {
+  background-color: #E9F1FD;
+  color: #125DCE;
+}
+
+/******* MAILLIST ***********/
+
+div.maillist {
+  margin-bottom: 30px;
+/*  border: 1px solid #919191;*/
+}
+
+div.maillist ul {
+	padding: 0px;
+	margin: 0px;
+}
+
+div.maillist div.titel {
+  font-weight: bold;
+}
+
+div.maillist small {
+	color: #8F8F8F;
+}
+
+
+div.maillist ul {
+  list-style: none;
+}
+
+div.maillist ul li {
+  border-bottom: 1px solid #DCDCDC;
+  padding-left: 10px;
+  padding-bottom: 4px;
+  padding-top: 4px;
+}
+
+div.maillist ul li a{
+  color: black;
+}
+
+div.maillist ul li:hover {
+  background-color: #F6F9FD;
+}
+
+#voorbeeldvenster {
+  background-color: #FFFFFF;
+  border: 1px solid #000000;
+}
+
+/******** TOOLTIPS **********/
+
+div.tooltip {
+  margin-left: 20px;
+  font-size: 9px;
+  color: #A5A5A5;
+}
+
+div.tooltip:hover {
+  background-color: #FFFFE1;
+  color: black;
+}
+
+
+/******** ICONS ***********/
+div.icons {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+div.icons div.icon {
+  text-align: center;
+  width: 125px;
+  float: left;
+  margin-bottom: 10px;
+}
+
+div.icons div.icon a:hover{
+	text-decoration: none;
+}
+
+/** depreciated: moet verwijderd worden **/
+div.icons div.iconblock {
+  border-top: 1px solid #888888;
+  padding-top: 5px;
+  clear: both;
+}
+
+div.icons fieldset.iconblock {
+	border: none;
+  border-top: 1px solid #888888;
+  padding-top: 5px;
+  clear: both;
+}
+
+div.icons fieldset.iconblock > label {
+  font-weight: bold;
+  display: inline;
+  clear: both;
+	color: black;
+	margin-bottom:1px;
+	padding: 2px;
+	padding-left: 8px;
+	padding-right: 8px;
+	position: relative;
+	top: -14px;
+	background-color:#FFFFFF;
+	margin-left:10px;
+	z-index: 1;
+}
+
+/** depreciated: moet verwijderd worden **/
+div.icons div.iconblock h2 {
+  display: inline;
+  clear: both;
+	color: black;
+	margin-bottom:1px;
+	padding: 2px;
+	padding-left: 8px;
+	padding-right: 8px;
+	position: relative;
+	top: -14px;
+	background-color:#FFFFFF;
+	margin-left:10px;
+	z-index: 1;
+}
+
+div.icons fieldset.smalliconblock {
+  width: 100px;
+  border: none;
+}
+
+div.icons fieldset.smalliconblock div.icon a {
+	font-size: 9px;
+}
+
+
+div.icons fieldset.smalliconblock div.icon {
+  text-align: center;
+  width: 50px;
+  float: left;
+  margin-bottom: 10px;
+}
+
+/******* CONTEXT ACTIONS MENU *********/
+div.actionsmenu {
+  width: 170px;
+  padding: 3px;
+  padding-top: 2px;
+  margin-left: 15px;
+  padding-left: 5px;
+  border: 1px solid #666666;
+  background: #F7F7F7;
+  position: fixed;
+  right: 17px;
+}
+
+div.formmenu{  
+  width: 360px;
+  position: fixed;
+}
+
+div.actionsmenu hr
+{
+  border: 0px;
+  border-top: 1px solid black;
+  margin-left: -5px;
+  margin-right: -5px;
+}
+
+table.twoColumnLayout td.fixedColumn div.actionsmenu {
+  width: auto;
+  padding: 3px;
+  padding-top: 2px;
+  margin-left: 0px;
+  padding-left: 5px;
+  margin-top: 12px;
+  border: 1px solid #666666;
+  background: #F7F7F7;
+}
+
+div.actionsmenu div.menuitem {
+  margin-left: 10px;
+}
+
+div.actionsmenu div.menuitem .disabled {
+	color: #888888;
+}
+
+div.actionsmenu img {
+  width: 16px;
+  vertical-align: middle;
+  position: relative;
+  top: -2px;
+}
+
+div.actionsmenu h1 {
+  font-size: 10px;
+  font-weight: bold;
+	border-bottom: 1px solid black; 
+	color: black;
+	padding-bottom: 2px;
+	margin-top: 3px;
+	margin-bottom: 6px;
+}
+
+div.contextmenu {
+  margin-top: 10px;
+}
+
+div.contextmenu span.contextlink {
+  border: 1px solid #888888;
+  vertical-align: middle;
+  cursor: pointer;
+  padding-left: 2px;
+  padding-right: 2px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+	margin-right: 8px;  
+	background-color: #D4D0C8;
+}
+
+div.contextmenu span.contextlink a {
+ 	color: black;
+	font-weight: normal;
+}
+
+div.contextmenu span.contextlink:hover {
+	background-color: #FDDAB7;
+}
+
+div.contextmenu span.contextlink a:hover {
+  text-decoration: none;
+}
+
+div.contextmenu span.contextlink img {
+  width: 12px;
+  height: 12px;
+  vertical-align: middle;
+  position:relative;
+  top: -2px;
+}
+
+/********* IMAGE_CHECKBOX ********/
+
+div.img_checkbox_checked a{
+  color: blue;
+}
+
+
+div.img_checkbox_unchecked a{
+  color: #888888;
+}
+
+
+/********** FILTER ************/
+div.dataTables_info
+{
+  position: absolute;
+  top: 0px;
+  width: 99%;
+  border: none !important;
+}
+
+div.dataTables_info,
+div.filter {
+  background-color: #FFFFFF;
+  border: 1px solid #7A8FAD;
+  padding: 2px;
+  margin: 0px;
+  margin-top: 3px;
+  margin-bottom: 3px;
+}
+
+div.verticalseparator {
+	display:inline;
+	border-left:1px solid #999999;
+	width=1px;
+	margin-left:7px;
+	margin-right:7px;  
+}
+
+div.filtergroup {
+	display: inline;
+	border: 1px solid #BBBBBB;
+	padding: 2px;
+	padding-top: 1px;
+}
+
+
+
+/********** log table **********/
+
+table.tabel_log {
+  padding: 2px;
+}
+
+table.tabel_log td{
+  background-color: #F2F6FD;
+}
+
+
+/*********** TAB BUTTONS *********/
+
+a.tabbutton, a.tabbutton:hover {
+	border: 1px solid #9E9E9E;
+	border-bottom: none;
+  text-decoration: none;
+	color: black;
+	background-color: #EFEFEF;
+	padding-left: 6px;
+	padding-right: 6px;
+	padding-top: 7px;
+	padding-bottom: 10px;
+	position: relative;
+	top: 1px;
+	left: 10px;
+}
+
+a.tabbuttonactive, a.tabbuttonactive:hover {
+	border: 1px solid #6FA9EC;
+	border-bottom: none;
+	background-color: #E9F1FD;
+  text-decoration: none;
+	padding-left: 6px;
+	padding-right: 6px;
+	padding-top: 8px;
+	padding-bottom: 11px;
+	position: relative;
+	top: 1px;
+	left: 10px;
+}
+
+a.tabbuttonactive img,
+a.tabbutton img {
+  padding-right:5px;
+	min-height: 32px;
+}
+
+/************* BREADCRUMB ***************/
+
+.breadcrumb {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+  margin-bottom: 6px;
+  border-bottom: 1px solid #888888;
+}
+
+.breadcrumb li {
+	display: inline;
+	padding: 0;
+	margin: 0;
+	color: #666;
+}
+
+.breadcrumb li:before { content: "> "; }
+.breadcrumb li:first-child:before { content: ""; }
+
+
+
+/************** BOOM ****************/
+
+
+
+div.boom div.folderinhoud
+ {
+  border-left: 1px dotted black;
+  
+	margin: 0px;
+	margin-left: 0px;
+	padding-left: 20px;
+}
+
+div.boom div.folderopen,
+div.boom div.folderroot,
+div.boom div.folderdicht {
+  border-left: 1px dotted black;
+  padding-top: 2px;
+}
+
+div.boom img {	
+  position: relative;
+  left: -5px;
+  border: none;
+}
+
+div.boom div.folderinhoud div:last-child  {
+  border-left: none;
+  margin-left: 1px;
+}
+
+div.boom a {
+  text-decoration: none;
+}
+
+
+/*********** OBJECTTABEL ************/
+
+table.objectdetails {
+	 border-collapse: collapse;
+}
+
+table.objectdetails th {
+  font-weight: normal;
+  vertical-align: top;
+  text-align: right;
+  padding-right: 10px;
+  color: #446A90;	
+}
+
+table.objectdetails tr,
+table.objectdetails td {
+  vertical-align: top;
+  font-weight: noram;
+}
+
+
+
+/******** Snelzoeken **********/
+div.snelzoeken {
+	position:absolute;
+	background-color:white;
+	border: 1px solid gray;
+	padding: 2px 2px 2px 2px;  
+}
+
+/********* Ajax Notification ***********/
+#notification {
+	position: fixed;
+	bottom: 0px;
+	padding: 0px;
+	height: 20px;
+	margin: 0px;
+	width: 100%;
+	background-color: #FFFF99;
+	display: block;
+	text-align: center;
+	font-size: 11px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	padding-top: 5px;
+	z-index: 900;
+}
+
+/* 
+Waarschijnlijk nog wel nodig voor IE brol
+
+html,body {
+	height: 100%;
+}
+*/
+
+html {
+	padding: 0 0 25px 0;  /* create area for notification area */
+}
+
+
+/********** Systeem Meldingen ******************/
+
+div.systeemmelding {
+  padding: 4px;
+  margin: 8px;
+  margin-bottom: 14px;
+  border: 1px solid #FFD400;
+  background-color: #FFFFAA;
+}
+
+div.systeemmelding.info {
+  border: 1px solid #2AFF2A;
+  background-color: #D4FFD4;
+}
+
+div.systeemmelding img.meldingicon {
+  float: left;
+}
+
+
+/****************** Image Radio Tag *****************/
+img.imageRadioTag {
+  padding: 2px;
+  position: relative;
+  top: +3px;
+  cursor: pointer;
+}
+
+input.number {
+	text-align: right;
+}
+
+/************** Permissies ******************/
+ul.editpermissionlist li {
+	list-style-type: none;
+}
+
+ul.editpermissionlist {
+	padding-left: 0px;
+	margin-left: 0px;
+}
+
+ul.editpermissionlist ul {
+	padding-left: 15px;
+	padding-bottom: 10px;
+}
+
+ul.editpermissionlist div.permissioninfo {
+	padding-left: 38px;
+	font-style: italic;
+}
+
+
+/************** Select list gebruikt in opslaan van lijsten/queries *************/
+div.mySelect {
+	overflow:auto;
+	height:110px;
+	width:100%;
+	background-color: white;
+	border: 1px solid #888888; padding: 2px;
+}
+
+div.mySelect div.item {
+  padding: 2px;
+	border-bottom: 1px solid #eeeeee;
+}
+			
+div.mySelect div.item a {
+	color: black;
+}
+
+div.mySelect div.item:hover {
+	border: 1px solid #cccccc;
+	background-color: #eeeeee;
+}
+
+
+div.mySelect div.item div.actions {
+	display: none;
+}
+
+div.mySelect div.item:hover div.actions {
+ 	text-align:right; 
+	display: block;
+}
+
+div.mySelect div.item div.naam {
+	cursor: pointer;
+}
+
+div.mySelect div.item:hover div.naam {
+	font-weight: bold;
+}
+
+div.mySelect div.item div.naam:hover {
+	text-decoration: underline;
+}
+
+/****** Subsidies **********/
+table.subsidiebijlagen
+{
+  width: 100%;
+}
+
+table.subsidiebijlagen td,
+table.subsidiebijlagen th
+{
+  border-top: 1px dashed #ccc;
+}
+
+table.subsidiebijlagen td
+{
+  vertical-align: top;
+}
+
+.object_updated_at
+{
+  float: right;
+  padding-right: 10px;
+  font-size: 9px;
+  line-height: 16px;
+  vertical-align: bottom;
+}
+
+.object_updated_at,
+.object_updated_at a
+{
+  color: #888;
+}
+
+.object_updated_at:hover,
+.object_updated_at:hover a
+{
+  color: #072655;
+}
+
+
+/****************************/
+/* MATERIAAL                */
+/****************************/
+.status_nieuw, .status_opgestart
+{
+  background-color: #FFEB84;
+}
+
+.status_voorstel, .status_wachtlijst
+{
+  background-color: #C1DA81;
+}
+
+
+.status_ok, .status_ingeschreven, .status_behandeld
+{
+  background-color: #83C77D;
+}
+
+.status_aanvraag
+{
+  background-color: #ffa837;
+}
+
+.status_geannuleerd, .status_stopgezet_voor, .status_stopgezet_na
+{
+  background-color: #F8696B;
+}
+
+.status_afgesloten
+{
+  background-color: #CCCCCC;
+}
+
+/* self-clear floats */
+.group:after{
+  content: ".";
+  display:block;
+  height:0;
+  clear:both;
+  visibility:hidden;
+}
+/* for IE6 */
+* html .group{
+  height:1%;
+}
+/* for IE7 */
+*:first-child+html .group{
+  min-height:1px;
+}
+
+
+
+/****************************/
+/* status coloring  / zaalreservaties       */
+/****************************/
+.asport_status_nieuw,
+.asport_status_optie
+{
+  background-color: #FFEB84;
+}
+.asport_status_in_wacht,
+.asport_status_voorstel,
+.asport_status_bewerkt
+{
+  background-color: #C1DA81;
+}
+
+.asport_status_verstuurd,
+.asport_status_deels_behandeld,
+.asport_status_goedgekeurd
+{
+  background-color: #C1DA81;
+}
+
+.asport_status_behandeld,
+.asport_status_definitief,
+.asport_status_aanwezig,
+.asport_status_veld_plaats
+{
+  background-color: #83C77D;
+}
+
+.asport_status_geannuleerd,
+.asport_status_tijdig_geannuleerd,
+.asport_status_veld_overlap_bezet
+{
+  background-color: #FCB77A;
+}
+
+.asport_status_geweigerd,
+.asport_status_te_laat_geannuleerd,
+.asport_status_niet_aanwezig,
+.asport_status_veld_bezet,
+.asport_status_foutief
+{
+  background-color: #F8696B;
+}
+
+.asport_status_afgesloten
+{
+  background-color: #CCCCCC;
+}
+
+.aanvraag_veld_geweigerd
+{
+  text-decoration: line-through;
+}
+
+
+/****************************/
+/* status coloring vacatures / Samenleven       */
+/****************************/
+.vacature_status_nieuw
+{
+  background-color: #FFEB84;
+}
+
+.vacature_status_in_behandeling
+{
+  background-color: #C1DA81;
+}
+
+.vacature_status_gevalideerd
+{
+  background-color: #7FD4FF;
+}
+
+.vacature_status_niet_weerhouden
+{
+  background-color: #FFAA55;
+}
+
+.vacature_status_ingevuld
+{
+  background-color: #83C77D;
+}
+
+.vacature_status_ingetrokken
+{
+  background-color: #F8696B;
+}
