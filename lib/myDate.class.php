@@ -615,6 +615,22 @@ class myDate
 		
 	  return $this;
 	}
+
+  public function subtractWorkingDays($n)
+  {
+    if (! $n > 0)
+      return $this;
+    while($n > 0)
+    {
+      $this->setJulianDay($this->getJulianDay() - 1);
+      if ($this->getDayOfWeek() != 0 && $this->getDayOfWeek() != 6)
+      {
+        $n--;
+      }
+    }
+
+    return $this;
+  }
 	
 	public function previousDay()
   {
