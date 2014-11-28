@@ -236,7 +236,8 @@ class myDateTools
     $now = time();
     $today = mktime(0, 0, 0);
     $startOfMonth = mktime(0,0,0, date('m'), 1);
-    
+    $dayMapping = array('Monday' => 'Maandag', 'Tuesday' => 'Dinsdag', 'Wednesday' => 'Woensdag', 'Thursday' => 'Donderdag', 'Friday' => 'Vrijdag', 'Saturday' => 'Zaterdag', 'Sunday' => 'Zondag');
+
     if ($ts + 3600 > $now)
     {
       if ($ts + 60 > $now)
@@ -272,7 +273,12 @@ class myDateTools
     }
     else if ($ts >= ($today - (3600 * 24 * 7)))
     {
-      return date('l', $ts);
+      if (! defined('format_date'))
+      {
+        Misc::use_helper('Date');
+      }
+
+      return format_date($ts, 'EEEE');
     }
     else if ($ts >= $startOfMonth)
     {
