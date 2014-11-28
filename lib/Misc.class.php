@@ -226,4 +226,22 @@ class Misc
 
     return call_user_func($object_class . 'Peer::retrieveByPK', $object_id);
   }
+  
+  
+
+  /**
+   * Writes an array to an open CSV file with a custom end of line.
+   *
+   * $fp: a seekable file pointer. Most file pointers are seekable, 
+   *   but some are not. example: fopen('php://output', 'w') is not seekable.
+   * $eol: probably one of "\r\n", "\n", or for super old macs: "\r"
+   */ 
+  public static function fputcsv_eol($fp, $array, $eol, $delimiter = ",", $enclosure = '"')
+  {
+    fputcsv($fp, $array, $delimiter, $enclosure);
+    if("\n" != $eol && 0 === fseek($fp, -1, SEEK_CUR)) 
+    {
+      fwrite($fp, $eol);
+    }
+  }
 }
