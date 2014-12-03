@@ -523,7 +523,13 @@ class myFilteredPager extends sfPropelPager
     return $previousPk ? call_user_func(array($this->getClassPeer(), 'retrieveByPk'), $previousPk) : null;
   }
 
-  
-  
-
+  /**
+   * Sets the criteria to dirty, which will enable rebuilding the criteria
+   * 
+   * @param bool $criteriaDirty
+   */
+  public function setCriteriaDirty($criteriaDirty = true)
+  {
+    $this->criteriaDirty = $criteriaDirty;
+  }
 }
