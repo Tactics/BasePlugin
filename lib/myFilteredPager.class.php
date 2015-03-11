@@ -542,4 +542,14 @@ class myFilteredPager extends sfPropelPager
 
     return is_array($results) && isset($results[0]) ? $results[0] : null;
   }
+
+  /**
+   * Sets the criteria to dirty, which will enable rebuilding the criteria
+   * 
+   * @param bool $criteriaDirty
+   */
+  public function setCriteriaDirty($criteriaDirty = true)
+  {
+    $this->criteriaDirty = $criteriaDirty;
+  }
 }

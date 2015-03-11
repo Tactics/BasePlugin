@@ -293,7 +293,7 @@ div.pageactions {
 }
 
 
-.tt-tabpanes
+.jarviswidget .tt-tabpanes
 {
     display: inline-block;
     width: 75%;
@@ -398,7 +398,7 @@ table.formtable .readonly
   padding-right: 5px;
 }
 
-input[type="text"]
+.jarviswidget input[type="text"]
 {
     width: 180px !important;
 }
