@@ -523,7 +523,23 @@ class myFilteredPager extends sfPropelPager
     return $previousPk ? call_user_func(array($this->getClassPeer(), 'retrieveByPk'), $previousPk) : null;
   }
 
-  
-  
+  /**
+   * Overschrijven van de default
+   *
+   * @param $offset
+   *
+   * @return Object/null
+   */
 
+  protected function retrieveObject($offset)
+  {
+    // TODO: check op doSelect & doSelectRs + afhandeling van beide gevallen.
+    $cForRetrieve = clone $this->getCriteria();
+    $cForRetrieve->setOffset($offset - 1);
+    $cForRetrieve->setLimit(1);
+
+    $results = call_user_func(array($this->getClassPeer(), 'doSelect'), $cForRetrieve);
+
+    return is_array($results) && isset($results[0]) ? $results[0] : null;
+  }
 }
