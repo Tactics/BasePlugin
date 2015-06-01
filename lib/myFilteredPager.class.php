@@ -172,13 +172,12 @@ class myFilteredPager extends sfPropelPager
    * 
    * @return mixed
    */
-  public function prepareValue($field)
+  public function prepareValue($value, $field)
   {
-    $value = $field['value'];
-    
     // Criteria::LIKE
-    if ($field['comparison'] == Criteria::LIKE)
+    if ($field['comparison'] == Criteria::LIKE || $field['comparison'] == Criteria::NOT_LIKE)
     {
+        $value = trim($value);
       $value = str_replace(array('%', '_'), array('\%', '\_'), $value);
     
     	if (strpos($value, '*') === false && strpos($value, '?') === false) {
@@ -337,32 +336,74 @@ class myFilteredPager extends sfPropelPager
     {
       $this->clearCriteria();
     }
-    
-    // Group by db_fieldname
-    $grouped = array();
-    
+        
     foreach($this->filter as $key => $field)
     {
       if (! $field['addToCriteria'])
       {
         continue;
       }
-
-      if ($field['value'] == 'ISNULL')
+      
+      $value = $field['value'];
+      
+      if ($value == 'ISNULL')
       {
         $this->criteria->add($field['dbFieldname'], null, Criteria::ISNULL);
+        continue;
       }
-      else if ($field['value'] != '')
+      
+      $isNegated = false;
+      
+      if (($value != '') && substr($value, 0, 1) == '!')
       {
-        $value = $this->prepareValue($field);
+        $isNegated = true;
         
+        // remove "!"
+        $value = substr($value, 1);
+
+        $notMap = array(
+            Criteria::EQUAL => Criteria::NOT_EQUAL,
+            Criteria::NOT_EQUAL => Criteria::EQUAL,
+            Criteria::LIKE => Criteria::NOT_LIKE,
+            Criteria::NOT_LIKE => Criteria::LIKE,
+            Criteria::IN => Criteria::NOT_IN,
+            Criteria::NOT_IN => Criteria::IN,
+        );
+
+        if (isset($notMap[$field['comparison']]))
+        {
+          $field['comparison'] = $notMap[$field['comparison']];
+        }
+      }
+      
+      if (is_string($value))
+      {
+        $orValues = explode(' OR ', $value);
+      }
+      else
+      {
+        $orValues = array($value);
+      }
+      
+      foreach($orValues as $orValue)
+      {
+        if ($value === '') continue;
+      
+        $orValue = $this->prepareValue($orValue, $field);
+
         if ($field['type'] & self::TYPE_NULL)
         {
-          $field['comparison'] = $value ? Criteria::ISNOTNULL : Criteria::ISNULL;
-          $value = null;
+          $field['comparison'] = $orValue ? Criteria::ISNOTNULL : Criteria::ISNULL;
+          $orValue = null;
+        }
+        else
+        {
+          if ($orValue == null) continue;
         }
         
-        $this->criteria->addAnd($field['dbFieldname'], $value, $field['comparison']);
+        $isNegated ? 
+          $this->criteria->addAnd($field['dbFieldname'], $orValue, $field['comparison'])
+          : $this->criteria->addOr($field['dbFieldname'], $orValue, $field['comparison']);
       }
     }
     
