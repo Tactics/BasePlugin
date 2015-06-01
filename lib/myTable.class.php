@@ -209,7 +209,7 @@ class myTable
 
 		// Create <col> tags
 		foreach($this->columnInfo as $cell) {
-		  $html .= "<col " . ((isset($cell["name"]) && $this->sortField == $cell["name"]) ? "class='gesorteerd'" : "") . "/>";
+		  $html .= "<col data-name='" . (isset($cell["name"]) ? $cell["name"] : '') . "' " . ((isset($cell["name"]) && $this->sortField == $cell["name"]) ? "class='gesorteerd'" : "") . "/>";
 		}
 
 		if ($this->showHeader) {
