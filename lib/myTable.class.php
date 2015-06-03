@@ -372,6 +372,11 @@ class myTable
     $html = "";
 	  return $html;
 	}
+  
+  public function getColumns()
+  {
+    return $this->columnInfo;
+  }
 }
 
 
