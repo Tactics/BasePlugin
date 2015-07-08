@@ -177,7 +177,9 @@ class myFilteredPager extends sfPropelPager
     // Criteria::LIKE
     if ($field['comparison'] == Criteria::LIKE || $field['comparison'] == Criteria::NOT_LIKE)
     {
-        $value = trim($value);
+      if ($value == "") return "";
+
+      $value = trim($value);
       $value = str_replace(array('%', '_'), array('\%', '\_'), $value);
     
     	if (strpos($value, '*') === false && strpos($value, '?') === false) {
@@ -388,7 +390,7 @@ class myFilteredPager extends sfPropelPager
       foreach($orValues as $orValue)
       {
         if ($value === '') continue;
-      
+
         $orValue = $this->prepareValue($orValue, $field);
 
         if ($field['type'] & self::TYPE_NULL)
