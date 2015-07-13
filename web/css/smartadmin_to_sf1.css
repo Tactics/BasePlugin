@@ -489,6 +489,8 @@ select.monospace option {
 fieldset.problemen {
   border: 1px solid #F50707;
   background: #FEEFEF;
+  margin-bottom: 5px;
+  padding: 4px;
 }
 
 fieldset.problemen li {
