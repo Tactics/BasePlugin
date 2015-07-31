@@ -172,8 +172,10 @@ class myFilteredPager extends sfPropelPager
    * 
    * @return mixed
    */
-  public function prepareValue($value, $field)
+  public function prepareValue($field, $overrideValue = null)
   {
+    $value = ($overrideValue !== null) ? $overrideValue : $field['value'];
+
     // Criteria::LIKE
     if ($field['comparison'] == Criteria::LIKE || $field['comparison'] == Criteria::NOT_LIKE)
     {
@@ -391,7 +393,7 @@ class myFilteredPager extends sfPropelPager
       {
         if ($value === '') continue;
 
-        $orValue = $this->prepareValue($orValue, $field);
+        $orValue = $this->prepareValue($field, $orValue);
 
         if ($field['type'] & self::TYPE_NULL)
         {
