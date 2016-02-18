@@ -351,6 +351,11 @@ class myTable
 			// End of cell
 			$html .= "</div>";
 			$html .= "    </td>\n";
+
+      if (is_array($rowData[$i]) && isset($rowData[$i]['tdAttributes']['colspan']))
+      {
+        $this->colCount -= $rowData[$i]['tdAttributes']['colspan'];
+      }
 		}
 
 		// End of row
