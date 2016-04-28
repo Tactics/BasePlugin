@@ -4,9 +4,10 @@
  * @var string $replaceTekst De replacement tekst op de submitton tijdens actie
  */
 if (! isset($replaceTekst)) $replaceTekst = 'Even geduld...';
+if (! isset($class)) $class = '';
 $randomHash = sha1(time());
 ?>
-<?php echo submit_tag(__($tekst), array('id' => $randomHash)); ?>
+<?php echo submit_tag(__($tekst), array('id' => $randomHash, 'class' => $class)); ?>
 <script type="text/javascript">
   jQuery(document).ready(function($){
     var eSubmit = $('#<?php echo $randomHash; ?>');
