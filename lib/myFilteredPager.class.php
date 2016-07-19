@@ -180,14 +180,17 @@ class myFilteredPager extends sfPropelPager
     if ($field['comparison'] == Criteria::LIKE || $field['comparison'] == Criteria::NOT_LIKE)
     {
       if ($value == "") return "";
-
       $value = trim($value);
+
+      // If value is surrounded by quotes
+      if(preg_match('/^(["\']).*\1$/m', $value))
+      {
+        $value = trim($value, '"');
+      } elseif (strpos($value, '*') === false && strpos($value, '?') === false) {
+        $value = "*$value*";
+      }
+
       $value = str_replace(array('%', '_'), array('\%', '\_'), $value);
-    
-    	if (strpos($value, '*') === false && strpos($value, '?') === false) {
-    		$value = "*$value*";
-    	}
-    
     	$value = str_replace(array('*', '?'), array('%', '_'), $value);
     }
     
