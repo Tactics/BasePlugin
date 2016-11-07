@@ -244,4 +244,16 @@ class Misc
       fwrite($fp, $eol);
     }
   }
+
+  /**
+   * @param $rrn
+   * @return mixed
+   */
+  public static function stripRrn($rrn) {
+    $rrn = str_replace(' ', '', $rrn);
+    $rrn = str_replace('.', '', $rrn);
+    $rrn = str_replace('-', '', $rrn);
+
+    return $rrn;
+  }
 }
