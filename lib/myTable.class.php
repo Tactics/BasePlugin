@@ -46,6 +46,7 @@ class myTable
 	private $rowDataHtml = "";
 
   private $smartadmin = false;
+  private $showGeenResultaten = true;
 
 	/**
 	 * Create a table object with given columns and options
@@ -86,9 +87,9 @@ class myTable
 		$this->class = _get_option($options, "class", "");
 		$this->tableAttributes = _get_option($options, "tableAttributes", array());
     $this->smartadmin = _get_option($options, "smartadmin", false);
-
+    $this->showGeenResultaten = _get_option($options, "showGeenResultaten", true);
 	}
-
+  
 	/**
 	 *
 	 */
@@ -122,7 +123,7 @@ class myTable
 	 */
 	function getRowHtml()
 	{
-	  if ($this->rowCount == 0) {
+	  if ($this->showGeenResultaten && ($this->rowCount == 0)) {
 		  $html = "    <td colspan='$this->colCount'>Geen resultaten</td>\n";
 		}
 		else $html = $this->rowDataHtml;

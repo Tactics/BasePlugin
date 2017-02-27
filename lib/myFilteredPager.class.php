@@ -479,21 +479,22 @@ class myFilteredPager extends sfPropelPager
   {
     return $this->getObjectByCursor($this->getNbResults());
   }
-  
+
   /**
    * Get next object based on a given primary key
-   * 
+   *
    * @param integer $currentPk : the id of the object right before the one we need
-   * @param string $pkColumn : column number of the primary key
-   * 
+   * @param int|string $pkColumn : column number of the primary key
+   * @param string $peerMethod
+   *
    * @return Object
    */
-  public function getNextObjectByPk($currentPk, $pkColumn = 1)
+  public function getNextObjectByPk($currentPk, $pkColumn = 1, $peerMethod = 'doSelectRS')
   {
     $c = $this->getCriteria();
     $c->setLimit(null);
     $c->setOffset(null);
-    $rs = call_user_func(array($this->getClassPeer(), 'doSelectRs'), $c);
+    $rs = call_user_func(array($this->getClassPeer(), $peerMethod), $c);
     
     while($rs->next() && ($rs->getInt($pkColumn) != $currentPk)) {}
 
@@ -503,18 +504,19 @@ class myFilteredPager extends sfPropelPager
 
   /**
    * Get next object based on a given primary key
-   * 
+   *
    * @param integer $currentPk : the id of the object right before the one we need
-   * @param string $pkColumn : column number of the primary key
-   * 
+   * @param int|string $pkColumn : column number of the primary key
+   * @param string $peerMethod
+   *
    * @return Object
    */
-  public function getPreviousObjectByPk($currentPk, $pkColumn = 1)
+  public function getPreviousObjectByPk($currentPk, $pkColumn = 1, $peerMethod = 'doSelectRS')
   {
     $c = $this->getCriteria();
     $c->setLimit(null);
     $c->setOffset(null);
-    $rs = call_user_func(array($this->getClassPeer(), 'doSelectRs'), $c);
+    $rs = call_user_func(array($this->getClassPeer(), $peerMethod), $c);
     $rs->last();
     
     while(($rs->getInt($pkColumn) != $currentPk) && $rs->previous()) {}
