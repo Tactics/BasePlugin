@@ -135,7 +135,7 @@ class Misc
   /**
    * Zet browsersheaders zo dat het document als PDF bestand herkend wordt
    */
-  public static function setPdfHeaders($filename)
+  public static function setPdfHeaders($filename, $download = true)
   {
     $response = sfContext::getInstance()->getResponse();
 
@@ -143,7 +143,9 @@ class Misc
     $response->setHttpHeader('Content-Language', 'nl');
     $response->addVaryHttpHeader('Accept-Language');
     $response->addCacheControlHttpHeader('no-cache');
-    $response->setHttpHeader('Content-Disposition', 'attachment; filename=' . $filename);
+    $download
+      ? $response->setHttpHeader('Content-Disposition', 'attachment; filename=' . $filename)
+      : $response->setHttpHeader('Content-Disposition', 'inline; filename=' . $filename);
   }
 
   public static function setCsvHeaders($filename)
