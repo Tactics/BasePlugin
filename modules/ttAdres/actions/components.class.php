@@ -3,6 +3,7 @@ class ttAdresComponents extends sfComponents
 {
   public function executeEdit()
   {
+    $this->object = isset($this->object) ? $this->object : new ttAdresGegevens();
     // Gegeven object moet van class ttAdresGegevens zijn.
     if (get_class($this->object) !== 'ttAdresGegevens'){
       throw new Exception('Het gegeven object is geen ttAdresGegevens');
