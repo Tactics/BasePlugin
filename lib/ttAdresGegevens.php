@@ -8,6 +8,11 @@ class ttAdresGegevens
   private $nummer;
   private $bus;
 
+  /**
+   * @param Persoon $persoon
+   *
+   * @return ttAdresGegevens
+   */
   public static function createFromPersoon(Persoon $persoon)
   {
     $adresGegevens = new self();
@@ -17,6 +22,30 @@ class ttAdresGegevens
     $adresGegevens->straat = $persoon->getStraat();
     $adresGegevens->nummer = $persoon->getNummer();
     $adresGegevens->bus = $persoon->getBus();
+    return $adresGegevens;
+  }
+
+  /**
+   * @param Organisatie $organisatie
+   * @param string $prefix
+   *
+   * @return ttAdresGegevens
+   */
+  public static function createFromOrganisatie(Organisatie $organisatie, $prefix = '')
+  {
+    $adresGegevens = new self();
+    $landGetter = 'get'.ucfirst(strtolower($prefix)).'LandId';
+    $adresGegevens->land_id = $organisatie->$landGetter();
+    $gemeenteGetter = 'get'.ucfirst(strtolower($prefix)).'Gemeente';
+    $adresGegevens->gemeente = $organisatie->$gemeenteGetter();
+    $postcodeGetter = 'get'.ucfirst(strtolower($prefix)).'Postcode';
+    $adresGegevens->postcode = $organisatie->$postcodeGetter();
+    $straatGetter = 'get'.ucfirst(strtolower($prefix)).'Straat';
+    $adresGegevens->straat = $organisatie->$straatGetter();
+    $nummerGetter = 'get'.ucfirst(strtolower($prefix)).'Nummer';
+    $adresGegevens->nummer = $organisatie->$nummerGetter();
+    $busGetter = 'get'.ucfirst(strtolower($prefix)).'Bus';
+    $adresGegevens->bus = $organisatie->$busGetter();
     return $adresGegevens;
   }
 
