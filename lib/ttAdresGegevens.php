@@ -8,6 +8,17 @@ class ttAdresGegevens
   private $nummer;
   private $bus;
 
+  public static function createFromPersoon(Persoon $persoon)
+  {
+    $adresGegevens = new self();
+    $adresGegevens->land_id = $persoon->getLandId();
+    $adresGegevens->gemeente = $persoon->getGemeente();
+    $adresGegevens->postcode = $persoon->getPostcode();
+    $adresGegevens->straat = $persoon->getStraat();
+    $adresGegevens->nummer = $persoon->getNummer();
+    $adresGegevens->bus = $persoon->getBus();
+    return $adresGegevens;
+  }
 
 
   /**
