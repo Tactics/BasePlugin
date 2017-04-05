@@ -4,8 +4,9 @@ class ttAdresComponents extends sfComponents
   public function executeEdit()
   {
     // Gegeven object moet van class ttAdresGegevens zijn.
-    if (get_class($this->object) != ttAdresGegevens::class)
+    if (get_class($this->object) !== 'ttAdresGegevens'){
       throw new Exception('Het gegeven object is geen ttAdresGegevens');
+    }
 
     // Mogelijke parameters.
     $this->prefix = isset($this->prefix) ? $this->prefix : '';
