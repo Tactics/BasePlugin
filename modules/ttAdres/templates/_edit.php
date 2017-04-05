@@ -2,6 +2,7 @@
 /** @var sfRequest $sf_request */
 /** @var boolean $edit_land */
 /** @var boolean $disabled */
+/** @var ttAdresGegevens $object */
 ?>
 
 <div class="row">
