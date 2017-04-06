@@ -49,6 +49,39 @@ class ttAdresGegevens
     return $adresGegevens;
   }
 
+  /**
+   * @param OrganisatieContact $contact
+   *
+   * @return ttAdresGegevens
+   */
+  public static function createFromOrganisatieContact(OrganisatieContact $contact)
+  {
+    $adresGegevens = new self();
+    $adresGegevens->land_id = $contact->getLandId();
+    $adresGegevens->gemeente = $contact->getGemeente();
+    $adresGegevens->postcode = $contact->getPostcode();
+    $adresGegevens->straat = $contact->getStraat();
+    $adresGegevens->nummer = $contact->getNummer();
+    $adresGegevens->bus = $contact->getBus();
+    return $adresGegevens;
+  }
+
+  /**
+   * @param Vacature $vacature
+   *
+   * @return ttAdresGegevens
+   */
+  public static function createFromVacature(Vacature $vacature)
+  {
+    $adresGegevens = new self();
+    $adresGegevens->land_id = 'BE';
+    $adresGegevens->gemeente = $vacature->getGemeente();
+    $adresGegevens->postcode = $vacature->getPostcode();
+    $adresGegevens->straat = $vacature->getStraat();
+    $adresGegevens->nummer = $vacature->getNummer();
+    $adresGegevens->bus = $vacature->getBus();
+    return $adresGegevens;
+  }
 
   /**
    * @return mixed
