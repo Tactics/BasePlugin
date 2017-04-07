@@ -94,18 +94,18 @@
       }
     }
 
-    jQuery('#<?php echo $field_landid; ?>').change(function()
+    $('#<?php echo $field_landid; ?>').change(function()
     {
       updateGemeenteEditor();
     });
 
-    jQuery('#<?php echo $gemeente_zoekveld;?>')
+    $('#<?php echo $gemeente_zoekveld;?>')
       .autocomplete('<?php echo url_for('ajax/gemeentes'); ?>', {
         mustMatch: true,
         max: 10,
         scroll: true,
         scrollHeight: 300,
-        width: 300,
+        width: jQuery('#<?php echo $gemeente_zoekveld;?>').outerWidth(true),
         cacheLength: 0,
         minChars: 3,
         delay: 800,
@@ -146,7 +146,7 @@
         max: 10,
         scroll: true,
         scrollHeight: 300,
-        width: 300,
+        width: $('#<?php echo $field_straat;?>').outerWidth(true),
         cacheLength: 0,
         extraParams: {postcode: function(){return $('#<?php echo $field_postcode; ?>').val();}},
         parse: function(data)
