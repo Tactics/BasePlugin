@@ -179,9 +179,10 @@ class myFilteredPager extends sfPropelPager
     // Criteria::LIKE
     if ($field['comparison'] == Criteria::LIKE)
     {
-      $value = str_replace(array('%', '_'), array('\%', '\_'), $value);
-    
-    	if (strpos($value, '*') === false && strpos($value, '?') === false) {
+      $value = str_replace(array('%'), array('\%'), $value);
+
+
+      if (strpos($value, '*') === false && strpos($value, '?') === false) {
     		$value = "*$value*";
     	}
     
