@@ -181,7 +181,6 @@ class myFilteredPager extends sfPropelPager
     {
       $value = str_replace(array('%'), array('\%'), $value);
 
-
       if (strpos($value, '*') === false && strpos($value, '?') === false) {
     		$value = "*$value*";
     	}
