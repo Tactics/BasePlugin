@@ -168,10 +168,3 @@
       });
   });
 </script>
-<style>
-  #straat_auto_complete ul
-  {
-    list-style: none none;
-  }
-</style>
-
