@@ -100,7 +100,7 @@
     });
 
     $('#<?php echo $gemeente_zoekveld;?>')
-      .autocomplete('<?php echo url_for('ajax/gemeentes'); ?>', {
+      .autocomplete('<?php echo $base_url.'/gemeentes'; ?>', {
         mustMatch: true,
         max: 10,
         scroll: true,
@@ -142,7 +142,7 @@
     updateGemeenteEditor();
 
     $('#<?php echo $field_straat;?>')
-      .autocomplete('<?php echo url_for('ajax/straten'); ?>', {
+      .autocomplete('<?php echo $base_url.'/straten'; ?>', {
         mustMatch: false,
         max: 10,
         scroll: true,

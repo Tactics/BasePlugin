@@ -10,6 +10,7 @@ class ttAdresComponents extends sfComponents
     }
 
     // Mogelijke parameters.
+    $this->base_url = sfConfig::get('sf_tt_base_adres_base_url', url_for(['module'=>'ajax']));
     $this->prefix = isset($this->prefix) ? $this->prefix : '';
     $this->disabled = isset($this->disabled) ? $this->disabled : false;
     $this->edit_land  = isset($this->edit_land) ? $this->edit_land : true;
