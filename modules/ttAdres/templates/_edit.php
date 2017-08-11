@@ -134,7 +134,8 @@
       {
         if (jQuery(this).val() === '')
         {
-          jQuery('#<?php echo $gemeente_id;?>').val('');
+            jQuery('#<?php echo $field_postcode;?>').val('');
+            jQuery('#<?php echo $field_gemeente;?>').val('');
         }
       });
 
