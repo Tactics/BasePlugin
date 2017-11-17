@@ -149,6 +149,9 @@ class myTable
 	  if ( isset($cell["width"]) )
 			$html .= " width=" . $cell["width"] . " style='" . $cell["width"] . "px;'";
 
+        if (isset($cell["min-max-width"]))
+            $html .= " style='min-width : " . $cell["min-max-width"] . "px; max-width : " . $cell["min-max-width"] . "px;'";
+
 	  if ( isset($cell["name"]) && $this->sortField == $cell["name"])
 			$html .= " class='gesorteerd'";
 
