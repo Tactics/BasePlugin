@@ -305,15 +305,6 @@ div.pageactions {
     margin-bottom: 10px;
 }
 
-.bijlage_toevoegen
-{
-    margin-left: 215px;
-}
-
-[id^="new_brief_bijlage"]
-{
-    margin-left: 214px;
-}
 #new_brief_bijlage0
 {
     margin-left: 0 !important;
