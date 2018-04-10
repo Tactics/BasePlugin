@@ -4,8 +4,8 @@
     margin-bottom: 0px;
 }
 
-#header h1 {padding-left: 70px; padding-top: 0px; font-size: 16px; color: #072655; 	font-family: Verdana, Arial, sans-serif; font-weight: bold;}
-#header h2 {padding-left: 70px; padding-top: 0px; font-size: 12px; color: #FFF; 	font-family: Verdana, Arial, sans-serif; font-weight: normal;}
+#header h1 {padding-left: 125px; padding-top: 0px; font-size: 16px; color: #072655; 	font-family: Verdana, Arial, sans-serif; font-weight: bold;}
+#header h2 {padding-left: 125px; padding-top: 0px; font-size: 12px; color: #FFF; 	font-family: Verdana, Arial, sans-serif; font-weight: normal;}
 
 body {
 	background: #fff url('/images/layout/header.jpg');
