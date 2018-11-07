@@ -152,7 +152,8 @@
     defaults = {
       width: "500px",
       top: 272,
-      overflow: "scroll"
+      overflow: "scroll",
+      left: "center"
     };
 
     if (options.height)
@@ -169,7 +170,7 @@
       .overlay({
           // custom top position 
           top: options.top,
-       
+          left: options.left,
           // some expose tweaks suitable for facebox-looking dialogs 
           expose: {
               // you might also consider a "transparent" color for the mask 
