@@ -3,7 +3,10 @@
  * @var string $tekst De tekst op de submitbutton
  * @var string $replaceTekst De replacement tekst op de submitton tijdens actie
  */
-if (! isset($replaceTekst)) $replaceTekst = 'Even geduld...';
+if(! function_exists('__'))
+  \Misc::use_helper('i18n');
+
+if (! isset($replaceTekst)) $replaceTekst = __('Even geduld...');
 if (! isset($class)) $class = '';
 $randomHash = sha1(time());
 ?>

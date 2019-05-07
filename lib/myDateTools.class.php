@@ -1,5 +1,9 @@
 <?php
 
+if(! function_exists('__'))
+  \Misc::use_helper('i18n');
+
+
 /*
  * Dit bestand maakt deel uit van een applicatie voor Digipolis Antwerpen.
  * 
@@ -236,40 +240,40 @@ class myDateTools
     $now = time();
     $today = mktime(0, 0, 0);
     $startOfMonth = mktime(0,0,0, date('m'), 1);
-    $dayMapping = array('Monday' => 'Maandag', 'Tuesday' => 'Dinsdag', 'Wednesday' => 'Woensdag', 'Thursday' => 'Donderdag', 'Friday' => 'Vrijdag', 'Saturday' => 'Zaterdag', 'Sunday' => 'Zondag');
+    $dayMapping = array('Monday' => __('Maandag'), 'Tuesday' => __('Dinsdag'), 'Wednesday' => __('Woensdag'), 'Thursday' => __('Donderdag'), 'Friday' => __('Vrijdag'), 'Saturday' => __('Zaterdag'), 'Sunday' => __('Zondag'));
 
     if ($ts + 3600 > $now)
     {
       if ($ts + 60 > $now)
       {
-        return 'minder dan een minuut geleden';
+        return __('minder dan een minuut geleden');
       }
       else if ($ts + 120 > $now)
       {
-        return '&eacute;&eacute;n minuut geleden';
+        return __('&eacute;&eacute;n minuut geleden');
       }
       else if ((($ts + 1860) > $now) && (($ts + 1740) < $now))
       {
-        return 'een half uur geleden';
+        return __('een half uur geleden');
       }
       else if ((($ts + 2760) > $now) && (($ts + 2640) < $now))
       {
-        return 'drie kwartier geleden';
+        return __('drie kwartier geleden');
       }
 
-      return floor(($now - $ts) / 60) . ' minuten geleden';
+      return floor(($now - $ts) / 60) . ' ' . __('minuten geleden');
     }
     else if ($ts > $today)
     {
-      return floor(($now - $ts) /3600) . ' uur geleden';
+      return floor(($now - $ts) /3600) . ' ' . __('uur geleden');
     }
     else if ($ts >= ($today - (3600 * 24)))
     {
-      return 'gisteren';
+      return __('gisteren');
     }
     else if ($ts >= ($today - (3600 * 48)))
     {
-      return 'eergisteren';
+      return __('eergisteren');
     }
     else if ($ts >= ($today - (3600 * 24 * 7)))
     {
@@ -282,7 +286,7 @@ class myDateTools
     }
     else if ($ts >= $startOfMonth)
     {
-      return floor(($now - $ts) / (3600 * 24)) . ' dagen geleden';
+      return floor(($now - $ts) / (3600 * 24)) . ' ' . __('dagen geleden');
     }
     
     $vorigeMaand = new myDate($startOfMonth);
@@ -290,7 +294,7 @@ class myDateTools
     
     if ($ts >= $vorigeMaand->getTimestamp())
     {
-      return 'vorige maand';  
+      return __('vorige maand');
     }
     
     $now = new myDate();
@@ -301,26 +305,26 @@ class myDateTools
     
     if ($j)
     {
-      $txt = (($j == 1) ? '��n' : $j) . ' jaar';
+      $txt = (($j == 1) ? __('��n') : $j) . ' ' . __('jaar');
     }
     
     if ($m)
     {
       if ($j)
       {
-        $txt .= ' en ';
+        $txt .= ' ' . __('en') . ' ';
       }
       if ($m == 1)
       {
-        $txt .= '��n maand';
+        $txt .= __('��n maand');
       }
       else
       {
-        $txt .= $m . ' maanden';
+        $txt .= $m . ' ' . __('maanden');
       }
     }
     
-    return $txt . ' geleden';
+    return $txt . ' ' . __('geleden');
   }
   
   private static $timestampRangeCache = array();
