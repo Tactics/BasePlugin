@@ -4,7 +4,7 @@
  * @var string $replaceTekst De replacement tekst op de submitton tijdens actie
  */
 if(! function_exists('__'))
-  \Misc::use_helper('i18n');
+  \Misc::use_helper('I18N');
 
 if (! isset($replaceTekst)) $replaceTekst = __('Even geduld...');
 if (! isset($class)) $class = '';

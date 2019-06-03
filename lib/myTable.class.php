@@ -125,7 +125,7 @@ class myTable
 	{
 	  // Failsafe if i18n is not loaded
 	  if(! function_exists('__'))
-	    Misc::use_helper('i18n');
+	    Misc::use_helper('I18N');
 
 	  if ($this->showGeenResultaten && ($this->rowCount == 0)) {
 		  $html = "    <td colspan='$this->colCount'>" . __('Geen resultaten') . "</td>\n";
