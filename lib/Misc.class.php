@@ -108,10 +108,14 @@ class Misc
     if (empty($objects))
       return array();
 
-    $keys = eval("return array_map(create_function('\$object', 'return \$object->{$indexGetter};'), \$objects);");
+    $keys = eval("return array_map(function(\$object) use (\$indexGetter) {
+      return \$object->{$indexGetter};
+    }, \$objects);");
 
     $values = $valueGetter
-      ? eval("return array_map(create_function('\$object', 'return \$object->{$valueGetter};'), \$objects);")
+      ? eval("return array_map(function(\$object) use (\$valueGetter) {
+          return \$object->{$valueGetter};
+        }, \$objects);")
       : $objects
     ;
 
