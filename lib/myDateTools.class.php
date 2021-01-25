@@ -305,7 +305,7 @@ class myDateTools
     
     if ($j)
     {
-      $txt = (($j == 1) ? __('��n') : $j) . ' ' . __('jaar');
+      $txt = (($j == 1) ? __('één') : $j) . ' ' . __('jaar');
     }
     
     if ($m)
@@ -316,7 +316,7 @@ class myDateTools
       }
       if ($m == 1)
       {
-        $txt .= __('��n maand');
+        $txt .= __('één maand');
       }
       else
       {
