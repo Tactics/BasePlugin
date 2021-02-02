@@ -159,12 +159,11 @@ class myTable
 	  if ( isset($cell["name"]) && $this->sortField == $cell["name"])
 			$html .= " class='gesorteerd'";
 
-		$html .= " onmouseover='jQuery(this).addClass(\"mouseover\")'";
-		$html .= " onmouseout='jQuery(this).removeClass(\"mouseover\")'";
-
-
 		if (isset($cell["sortable"]) && $cell["sortable"] && isset($cell["name"]) && $cell["name"] != "")
     {
+      $html .= " onmouseover='jQuery(this).addClass(\"mouseover\")'";
+      $html .= " onmouseout='jQuery(this).removeClass(\"mouseover\")'";
+
 		  if ($this->sortTarget)
       {
   			$html .= " onclick=\"" . tt_remote_function(array('update' => $this->sortTarget, 'url' => $this->sortUri . (strpos($this->sortUri, '?') ? '&' : '?') . "orderby=" . $cell["name"])) . "\"";

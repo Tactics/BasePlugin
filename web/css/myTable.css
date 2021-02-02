@@ -22,9 +22,13 @@ table.grid td {
 table.grid thead tr td
 {
 	background-color: #BECDF2;
-	padding: 0px; 
+	padding: 0px;
 	font-weight: bold;
 	border: 1px solid /* #E9F1FD; */ white;
+}
+
+table.grid thead tr td.mouseover:hover
+{
 	cursor: pointer;
 }
 
@@ -135,7 +139,7 @@ table.grid tbody tr.even.gearchiveerd:hover td
 	border-bottom: 1px solid #DCDCDC;
 	*/
 	background-color: #6681C3;
-	color: white; 
+	color: white;
 }
 
 table.grid tbody tr:hover td a,
@@ -148,5 +152,5 @@ table.grid tbody tr.even.gearchiveerd:hover td a
 	*/
 	color: white;
 	background-color: #6681C3;
-	text-decoration: underline; 
+	text-decoration: underline;
 }
