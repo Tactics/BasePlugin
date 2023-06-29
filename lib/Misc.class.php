@@ -24,10 +24,10 @@ class Misc
    * Statical helper function to include a helper library
    * from a location other than a symfony template
    */
-    public static function use_helper()
-    {
-			sfLoader::loadHelpers(func_get_args(), sfContext::getInstance()->getModuleName());
-    }
+  public static function use_helper()
+  {
+    sfLoader::loadHelpers(func_get_args(), sfContext::getInstance()->getModuleName());
+  }
 
 
   /**
@@ -37,24 +37,22 @@ class Misc
    *
    * @return the generated UUID
    */
-    public static function create_uuid()
-    {
-      if (function_exists('com_create_guid')){
-        return trim(com_create_guid(), '{}');
-      }
-      else
-      {
-        mt_srand((double)microtime()*10000);//optional for php 4.2.0 and up.
-        $charid = strtoupper(md5(uniqid(rand(), true)));
-        $hyphen = chr(45);// "-"
-        $uuid = substr($charid, 0, 8).$hyphen
-                .substr($charid, 8, 4).$hyphen
-                .substr($charid,12, 4).$hyphen
-                .substr($charid,16, 4).$hyphen
-                .substr($charid,20,12);
+  public static function create_uuid()
+  {
+    if (function_exists('com_create_guid')) {
+      return trim(com_create_guid(), '{}');
+    } else {
+      mt_srand((double)microtime() * 10000);//optional for php 4.2.0 and up.
+      $charid = strtoupper(md5(uniqid(rand(), true)));
+      $hyphen = chr(45);// "-"
+      $uuid = substr($charid, 0, 8) . $hyphen
+        . substr($charid, 8, 4) . $hyphen
+        . substr($charid, 12, 4) . $hyphen
+        . substr($charid, 16, 4) . $hyphen
+        . substr($charid, 20, 12);
 
-        return $uuid;
-      }
+      return $uuid;
+    }
   }
 
   /**
@@ -80,15 +78,15 @@ class Misc
   public static function create_password($length = 7)
   {
     $chars = "abcdefghijkmnopqrstuvwxyz023456789";
-    srand((double)microtime()*1000000);
+    srand((double)microtime() * 1000000);
     $i = 0;
     $pass = '';
 
     while ($i <= $length) {
-        $num = rand() % 33;
-        $tmp = substr($chars, $num, 1);
-        $pass = $pass . $tmp;
-        $i++;
+      $num = rand() % 33;
+      $tmp = substr($chars, $num, 1);
+      $pass = $pass . $tmp;
+      $i++;
     }
 
     return $pass;
@@ -116,8 +114,7 @@ class Misc
       ? eval("return array_map(function($object) use ($valueGetter) {
           return $object->{$valueGetter};
         }, $objects);")
-      : $objects
-    ;
+      : $objects;
 
     return array_combine($keys, $values);
   }
@@ -135,7 +132,7 @@ class Misc
     $response->addCacheControlHttpHeader('no-cache');
     $response->setHttpHeader('Content-Disposition', 'attachment; filename=' . $filename);
   }
-  
+
   /**
    * Zet browsersheaders zo dat het document als PDF bestand herkend wordt
    */
@@ -223,7 +220,7 @@ class Misc
   /**
    * Geeft het object terug op basis van class en id
    * op voorwaarde dat er een Peer class met retrieveByPK static function bestaat
-   * 
+   *
    * @param string $object_class
    * @param integer $object_id
    *
@@ -231,33 +228,29 @@ class Misc
    */
   public static function getObject($object_class, $object_id)
   {
-    if (!($object_class && $object_id))
-    {
+    if (!($object_class && $object_id)) {
       return null;
     }
 
-    if (!method_exists($object_class . 'Peer', 'retrieveByPK'))
-    {
+    if (!method_exists($object_class . 'Peer', 'retrieveByPK')) {
       return null;
     }
 
     return call_user_func($object_class . 'Peer::retrieveByPK', $object_id);
   }
-  
-  
+
 
   /**
    * Writes an array to an open CSV file with a custom end of line.
    *
-   * $fp: a seekable file pointer. Most file pointers are seekable, 
+   * $fp: a seekable file pointer. Most file pointers are seekable,
    *   but some are not. example: fopen('php://output', 'w') is not seekable.
    * $eol: probably one of "\r\n", "\n", or for super old macs: "\r"
-   */ 
+   */
   public static function fputcsv_eol($fp, $array, $eol, $delimiter = ",", $enclosure = '"')
   {
     fputcsv($fp, $array, $delimiter, $enclosure);
-    if("\n" != $eol && 0 === fseek($fp, -1, SEEK_CUR)) 
-    {
+    if ("\n" != $eol && 0 === fseek($fp, -1, SEEK_CUR)) {
       fwrite($fp, $eol);
     }
   }
