@@ -112,7 +112,7 @@ class Misc
 
     $values = $valueGetter
       ? eval("return array_map(function(\$object) use (\$valueGetter) {
-          return $\object->{$valueGetter};
+          return \$object->{$valueGetter};
         }, \$objects);")
       : $objects;
 
