@@ -181,22 +181,35 @@ class Misc
    */
   public static function getGeboortedatum($rrn, $format = 'yyyy-MM-dd')
   {
-    self::use_helper('Date');
-    if (intval(substr($rrn, 0, 2)) < 20)
-    {
-      $propelDate = '20' . substr($rrn, 0, 2) . '-' . substr($rrn, 2, 2) . '-' . substr($rrn, 4, 2);
-    }
-    else
-    {
-      $propelDate = '19' . substr($rrn, 0, 2) . '-' . substr($rrn, 2, 2) . '-' . substr($rrn, 4, 2);
+    $rrn = preg_replace('/\D/', '', $rrn);
+
+    if (strlen($rrn) !== 11) {
+      return false;
     }
 
-    return format_date($propelDate, $format);
+    if ((int)substr($rrn, 0, 2) <= date('y')) {
+      // controle meer dan 100 j oud op basis van berekening controlegetal
+      if ((int)substr($rrn, 9, 2) === (97 - ((int)substr($rrn, 0, 9) % 97))) {
+        $jaar = '19' . substr($rrn, 0, 2);
+      } else { // defaulten naar deze eeuw
+        $jaar = '20' . substr($rrn, 0, 2);
+      }
+    } else { // sowieso vorige eeuw
+      $jaar = '19' . substr($rrn, 0, 2);
+    }
+
+    // Default naar 01/01 voor RRN van mensen wiens geboortedatum men niet kent.
+    $maand = substr($rrn, 2, 2) !== '00' ? substr($rrn, 2, 2) : 1;
+    $dag = substr($rrn, 4, 2) !== '00' ? substr($rrn, 4, 2) : 1;
+
+    self::use_helper('Date');
+
+    return format_date(sprintf("%4s-%2s-%2s", $jaar, $maand, $dag), $format);
   }
 
   /**
    * Geformatteerd printen van var + die()
-   * 
+   *
    * @param mixed $var
    */
   public static function pre_print_r($var)
